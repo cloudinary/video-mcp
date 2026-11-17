@@ -94,7 +94,7 @@ mcp-typescript:
       - video-canvas
       - media
     license: MIT
-    long_description: An MCP server for the Cloudinary Video API. Broadcast live streams over RTMP with HLS delivery, archiving, and simulcast to YouTube or Facebook. Generate videos from images and a prompt with Image to Video (Beta, add-on). Get timestamped visual transcripts of stored videos with AI Video Analysis (Beta). Build Video Canvas applets: node-based transformation pipelines saved as named transformations.
+    long_description: 'An MCP server for the Cloudinary Video API. Broadcast live streams over RTMP with HLS delivery, archiving, and simulcast to YouTube or Facebook. Generate videos from images and a prompt with Image to Video (Beta, add-on). Get timestamped visual transcripts of stored videos with AI Video Analysis (Beta). Build Video Canvas applets: node-based transformation pipelines saved as named transformations.'
     privacy_policies:
       - https://cloudinary.com/privacy
     repository:
