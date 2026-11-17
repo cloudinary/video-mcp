@@ -1,0 +1,78 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.cloudinary/video-mcp",
+  "title": "Cloudinary Video",
+  "description": "Stream live video, generate videos from images with AI, get timestamped visual transcripts of your videos, and build reusable video transformation pipelines.",
+  "websiteUrl": "https://cloudinary.com/documentation/cloudinary_llm_mcp",
+  "icons": [
+    {
+      "src": "https://cloudinary-res.cloudinary.com/image/upload/v1597183771/website/cloudinary_web_favicon.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "192x192"
+      ]
+    }
+  ],
+  "repository": {
+    "url": "https://github.com/cloudinary/video-mcp",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@cloudinary/video-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "CLOUDINARY_CLOUD_NAME",
+          "description": "Your Cloudinary cloud name. Find it in your Cloudinary Dashboard.",
+          "isRequired": true,
+          "isSecret": false
+        },
+        {
+          "name": "CLOUDINARY_API_KEY",
+          "description": "Your Cloudinary API key. Found in Dashboard > Settings > Access Keys.",
+          "isRequired": true,
+          "isSecret": false
+        },
+        {
+          "name": "CLOUDINARY_API_SECRET",
+          "description": "Your Cloudinary API secret. Found in Dashboard > Settings > Access Keys.",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    },
+    {
+      "registryType": "oci",
+      "identifier": "docker.io/cloudinary/video-mcp:0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "CLOUDINARY_CLOUD_NAME",
+          "description": "Your Cloudinary cloud name. Find it in your Cloudinary Dashboard.",
+          "isRequired": true,
+          "isSecret": false
+        },
+        {
+          "name": "CLOUDINARY_API_KEY",
+          "description": "Your Cloudinary API key. Found in Dashboard > Settings > Access Keys.",
+          "isRequired": true,
+          "isSecret": false
+        },
+        {
+          "name": "CLOUDINARY_API_SECRET",
+          "description": "Your Cloudinary API secret. Found in Dashboard > Settings > Access Keys.",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

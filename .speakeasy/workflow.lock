@@ -1,0 +1,37 @@
+speakeasyVersion: 1.809.0
+sources:
+    CloudinaryVideo-MCP-OAS:
+        sourceNamespace: cloudinary-video-mcp-oas
+        sourceRevisionDigest: sha256:74d365bb923e45899134b74bae76edd521fb28c150fb7d99591874cba1ff2ac0
+        sourceBlobDigest: sha256:098221a24c77edd421fd529f762bb8df92f519a70aed23f31c29d265e258d381
+        tags:
+            - latest
+            - 0.1.1
+targets:
+    cloudinary-video-mcp:
+        source: CloudinaryVideo-MCP-OAS
+        sourceNamespace: cloudinary-video-mcp-oas
+        sourceRevisionDigest: sha256:74d365bb923e45899134b74bae76edd521fb28c150fb7d99591874cba1ff2ac0
+        sourceBlobDigest: sha256:098221a24c77edd421fd529f762bb8df92f519a70aed23f31c29d265e258d381
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        CloudinaryVideo-MCP-OAS:
+            inputs:
+                - location: https://cloudinary.github.io/api-schemas/video/schema.yml
+            overlays:
+                - location: https://cloudinary.github.io/api-schemas/overlays/security-scheme-cloud-overlay.yaml
+                - location: https://cloudinary.github.io/api-schemas/overlays/cloud-name-overlay.yml
+            registry:
+                location: registry.speakeasyapi.dev/cloudinary/cloudinary/cloudinary-video-mcp-oas
+    targets:
+        cloudinary-video-mcp:
+            target: mcp-typescript
+            source: CloudinaryVideo-MCP-OAS
+            publish:
+                npm:
+                    token: $npm_token
+                mcpRegistry:
+                    auth: http
+                    token: $mcp_registry_token

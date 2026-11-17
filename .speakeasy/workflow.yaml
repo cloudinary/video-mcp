@@ -1,0 +1,21 @@
+workflowVersion: 1.0.0
+speakeasyVersion: latest
+sources:
+    CloudinaryVideo-MCP-OAS:
+        inputs:
+            - location: https://cloudinary.github.io/api-schemas/video/schema.yml
+        overlays:
+            - location: https://cloudinary.github.io/api-schemas/overlays/security-scheme-cloud-overlay.yaml
+            - location: https://cloudinary.github.io/api-schemas/overlays/cloud-name-overlay.yml
+        registry:
+            location: registry.speakeasyapi.dev/cloudinary/cloudinary/cloudinary-video-mcp-oas
+targets:
+    cloudinary-video-mcp:
+        target: mcp-typescript
+        source: CloudinaryVideo-MCP-OAS
+        publish:
+            npm:
+                token: $npm_token
+            mcpRegistry:
+                auth: http
+                token: $mcp_registry_token
