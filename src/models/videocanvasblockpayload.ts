@@ -4,17 +4,10 @@
  */
 
 import * as z from "zod";
-
-/**
- * Editor state; must contain `position_x` and `position_y`.
- */
-export type VideoCanvasBlockPayloadMetadata = {};
-
-export const VideoCanvasBlockPayloadMetadata$zodSchema: z.ZodType<
-  VideoCanvasBlockPayloadMetadata
-> = z.object({}).describe(
-  "Editor state; must contain `position_x` and `position_y`.",
-);
+import {
+  VideoCanvasBlockMetadata,
+  VideoCanvasBlockMetadata$zodSchema,
+} from "./videocanvasblockmetadata.js";
 
 /**
  * A node on the canvas. Most blocks are action groups; a kind ending in
@@ -27,7 +20,7 @@ export type VideoCanvasBlockPayload = {
   id: string;
   kind: string;
   content?: any | undefined;
-  metadata?: VideoCanvasBlockPayloadMetadata | undefined;
+  metadata: VideoCanvasBlockMetadata;
 };
 
 export const VideoCanvasBlockPayload$zodSchema: z.ZodType<
@@ -40,8 +33,9 @@ export const VideoCanvasBlockPayload$zodSchema: z.ZodType<
   kind: z.string().describe(
     "Either a special type or the name of a group of actions, and it\ndetermines how `content` is read. Special types: a kind ending in\n`_input` or `_output` is a boundary block (content is an\n`{\"input\":...}`/`{\"output\":...}` reference) and `preview_node` is a\npreview tap (no content). Any other value is an action group whose\ncontent is an array of serializer actions; the exact string (e.g.\n`group`) only names the actions for the UI and has no backend role\nbeyond that grouping.\n",
   ),
-  metadata: z.lazy(() => VideoCanvasBlockPayloadMetadata$zodSchema).optional()
-    .describe("Editor state; must contain `position_x` and `position_y`."),
+  metadata: VideoCanvasBlockMetadata$zodSchema.describe(
+    "Editor state of a block",
+  ),
 }).describe(
   "A node on the canvas. Most blocks are action groups; a kind ending in\n`_input` or `_output` marks a boundary block, and `preview_node` marks a\npreview tap.\n",
 );

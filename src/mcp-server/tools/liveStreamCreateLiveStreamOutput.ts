@@ -10,17 +10,16 @@ import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
   liveStreamId: z.string().describe("live stream id"),
-  LiveStreamOutputCreatePayload: LiveStreamOutputCreatePayload$zodSchema
-    .optional(),
+  LiveStreamOutputCreatePayload: LiveStreamOutputCreatePayload$zodSchema,
 };
 
 export const tool$liveStreamCreateLiveStreamOutput: ToolDefinition<
   typeof args
 > = {
-  name: "live-stream-create-live-stream-output",
+  name: "create-live-stream-output",
   description: `Create a new live stream output`,
   annotations: {
-    "title": "",
+    "title": "Create Live Stream Output",
     "destructiveHint": false,
     "idempotentHint": false,
     "openWorldHint": false,
@@ -32,7 +31,7 @@ export const tool$liveStreamCreateLiveStreamOutput: ToolDefinition<
       client,
       args.liveStreamId,
       args.LiveStreamOutputCreatePayload,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

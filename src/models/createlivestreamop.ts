@@ -5,30 +5,30 @@
 
 import * as z from "zod";
 import {
-  LiveStreamErrorWrappedResponse,
-  LiveStreamErrorWrappedResponse$zodSchema,
-} from "./livestreamerrorwrappedresponse.js";
+  ErrorWrappedResponse,
+  ErrorWrappedResponse$zodSchema,
+} from "./errorwrappedresponse.js";
 import {
   LiveStreamWrappedResponse,
   LiveStreamWrappedResponse$zodSchema,
 } from "./livestreamwrappedresponse.js";
 
-export type CreateLiveStreamGlobals = { cloudName?: string | undefined };
+export type CreateLiveStreamGlobals = { cloud_name?: string | undefined };
 
 export const CreateLiveStreamGlobals$zodSchema: z.ZodType<
   CreateLiveStreamGlobals
 > = z.object({
-  cloudName: z.string().describe("The cloud name for your product environment.")
+  cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
 });
 
 export type CreateLiveStreamResponse =
   | LiveStreamWrappedResponse
-  | LiveStreamErrorWrappedResponse;
+  | ErrorWrappedResponse;
 
 export const CreateLiveStreamResponse$zodSchema: z.ZodType<
   CreateLiveStreamResponse
 > = z.union([
   LiveStreamWrappedResponse$zodSchema,
-  LiveStreamErrorWrappedResponse$zodSchema,
+  ErrorWrappedResponse$zodSchema,
 ]);

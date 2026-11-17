@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * Replace an applet's content
  *
  * @remarks
- * Replaces the full content of an existing applet and recompiles its backing named transformation.
+ * Replaces the full content of an existing applet and recompiles its action blocks to validate them. For a derived applet, its backing named transformation is also updated.
  */
 export function videoCanvasUpdateVideoCanvasApplet(
   client$: CloudinaryVideoCore,
@@ -101,13 +101,13 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
-    cloudName: encodeSimple("cloudName", client$._options.cloud_name, {
+    cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
       explode: false,
       charEncoding: "percent",
     }),
   };
   const path$ = pathToFunc(
-    "/v2/video/{cloudName}/video_canvas/applets/{appletId}",
+    "/v2/video/{cloud_name}/video_canvas/applets/{appletId}",
   )(
     pathParams$,
   );

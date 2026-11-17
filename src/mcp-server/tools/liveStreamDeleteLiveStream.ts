@@ -12,12 +12,12 @@ const args = {
 };
 
 export const tool$liveStreamDeleteLiveStream: ToolDefinition<typeof args> = {
-  name: "live-stream-delete-live-stream",
+  name: "delete-live-stream",
   description: `Delete a live stream`,
   annotations: {
-    "title": "",
-    "destructiveHint": true,
-    "idempotentHint": false,
+    "title": "Delete Live Stream",
+    "destructiveHint": false,
+    "idempotentHint": true,
     "openWorldHint": false,
     "readOnlyHint": false,
   },
@@ -26,7 +26,7 @@ export const tool$liveStreamDeleteLiveStream: ToolDefinition<typeof args> = {
     const [result] = await liveStreamDeleteLiveStream(
       client,
       args.liveStreamId,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

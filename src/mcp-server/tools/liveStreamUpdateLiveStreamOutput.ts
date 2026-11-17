@@ -11,19 +11,18 @@ import { formatResult, ToolDefinition } from "../tools.js";
 const args = {
   liveStreamId: z.string().describe("live stream id"),
   liveStreamOutputId: z.string().describe("live stream output id"),
-  LiveStreamOutputUpdatePayload: LiveStreamOutputUpdatePayload$zodSchema
-    .optional(),
+  LiveStreamOutputUpdatePayload: LiveStreamOutputUpdatePayload$zodSchema,
 };
 
 export const tool$liveStreamUpdateLiveStreamOutput: ToolDefinition<
   typeof args
 > = {
-  name: "live-stream-update-live-stream-output",
+  name: "update-live-stream-output",
   description: `Update a live stream output`,
   annotations: {
-    "title": "",
+    "title": "Update Live Stream Output",
     "destructiveHint": false,
-    "idempotentHint": false,
+    "idempotentHint": true,
     "openWorldHint": false,
     "readOnlyHint": false,
   },
@@ -34,7 +33,7 @@ export const tool$liveStreamUpdateLiveStreamOutput: ToolDefinition<
       args.liveStreamId,
       args.liveStreamOutputId,
       args.LiveStreamOutputUpdatePayload,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

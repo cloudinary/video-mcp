@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  * Delete an applet
  *
  * @remarks
- * Deletes an applet and its stored content. The named transformation that backs the applet isn't deleted, so delivery URLs and SDK calls that reference it keep working. To stop delivering the transformation, delete the named transformation separately.
+ * Deletes an applet and its stored content. For a derived applet, the named transformation that backs it isn't deleted, so delivery URLs and SDK calls that reference it keep working. To stop delivering the transformation, delete the named transformation separately.
  */
 export function videoCanvasDeleteVideoCanvasApplet(
   client$: CloudinaryVideoCore,
@@ -94,13 +94,13 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
-    cloudName: encodeSimple("cloudName", client$._options.cloud_name, {
+    cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
       explode: false,
       charEncoding: "percent",
     }),
   };
   const path$ = pathToFunc(
-    "/v2/video/{cloudName}/video_canvas/applets/{appletId}",
+    "/v2/video/{cloud_name}/video_canvas/applets/{appletId}",
   )(
     pathParams$,
   );

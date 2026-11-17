@@ -5,30 +5,30 @@
 
 import * as z from "zod";
 import {
-  ImageToVideoErrorWrappedResponse,
-  ImageToVideoErrorWrappedResponse$zodSchema,
-} from "./imagetovideoerrorwrappedresponse.js";
+  ErrorWrappedResponse,
+  ErrorWrappedResponse$zodSchema,
+} from "./errorwrappedresponse.js";
 import {
   ImageToVideoGenerateWrappedResponse,
   ImageToVideoGenerateWrappedResponse$zodSchema,
 } from "./imagetovideogeneratewrappedresponse.js";
 
-export type CreateVideoGenerateJobGlobals = { cloudName?: string | undefined };
+export type CreateVideoGenerateJobGlobals = { cloud_name?: string | undefined };
 
 export const CreateVideoGenerateJobGlobals$zodSchema: z.ZodType<
   CreateVideoGenerateJobGlobals
 > = z.object({
-  cloudName: z.string().describe("The cloud name for your product environment.")
+  cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
 });
 
 export type CreateVideoGenerateJobResponse =
   | ImageToVideoGenerateWrappedResponse
-  | ImageToVideoErrorWrappedResponse;
+  | ErrorWrappedResponse;
 
 export const CreateVideoGenerateJobResponse$zodSchema: z.ZodType<
   CreateVideoGenerateJobResponse
 > = z.union([
   ImageToVideoGenerateWrappedResponse$zodSchema,
-  ImageToVideoErrorWrappedResponse$zodSchema,
+  ErrorWrappedResponse$zodSchema,
 ]);

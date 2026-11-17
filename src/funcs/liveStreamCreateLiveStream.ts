@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  */
 export function liveStreamCreateLiveStream(
   client$: CloudinaryVideoCore,
-  request?: LiveStreamCreatePayload | undefined,
+  request: LiveStreamCreatePayload,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -54,7 +54,7 @@ export function liveStreamCreateLiveStream(
 
 async function $do(
   client$: CloudinaryVideoCore,
-  request?: LiveStreamCreatePayload | undefined,
+  request: LiveStreamCreatePayload,
   options?: RequestOptions,
 ): Promise<
   [
@@ -73,24 +73,22 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => LiveStreamCreatePayload$zodSchema.optional().parse(value$),
+    (value$) => LiveStreamCreatePayload$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = payload$ === undefined
-    ? null
-    : encodeJSON("body", payload$, { explode: true });
+  const body$ = encodeJSON("body", payload$, { explode: true });
 
   const pathParams$ = {
-    cloudName: encodeSimple("cloudName", client$._options.cloud_name, {
+    cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
       explode: false,
       charEncoding: "percent",
     }),
   };
-  const path$ = pathToFunc("/v2/video/{cloudName}/live_streams")(
+  const path$ = pathToFunc("/v2/video/{cloud_name}/live_streams")(
     pathParams$,
   );
 

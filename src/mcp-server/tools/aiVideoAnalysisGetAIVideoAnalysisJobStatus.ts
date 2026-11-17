@@ -16,23 +16,23 @@ const args = {
 export const tool$aiVideoAnalysisGetAIVideoAnalysisJobStatus: ToolDefinition<
   typeof args
 > = {
-  name: "AI-video-analysis-get-AI-video-analysis-job-status",
+  name: "get-video-analysis-job",
   description: `Poll an AI Video Analysis job
 
 Returns the current status of an analysis job. When the status is \`completed\`, the response includes the generated visual transcript file's asset details and delivery URL.`,
   annotations: {
-    "title": "",
+    "title": "Get Video Analysis Job",
     "destructiveHint": false,
     "idempotentHint": false,
     "openWorldHint": false,
-    "readOnlyHint": true,
+    "readOnlyHint": false,
   },
   args,
   tool: async (client, args, ctx) => {
     const [result] = await aiVideoAnalysisGetAIVideoAnalysisJobStatus(
       client,
       args.jobId,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

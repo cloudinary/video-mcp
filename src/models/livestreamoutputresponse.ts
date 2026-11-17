@@ -12,6 +12,7 @@ export type LiveStreamOutputResponse = {
   uri?: string | null | undefined;
   stream_key?: string | null | undefined;
   vendor?: string | null | undefined;
+  asset_folder?: string | null | undefined;
   public_id?: string | null | undefined;
   created_at: number;
   updated_at: number;
@@ -20,6 +21,7 @@ export type LiveStreamOutputResponse = {
 export const LiveStreamOutputResponse$zodSchema: z.ZodType<
   LiveStreamOutputResponse
 > = z.object({
+  asset_folder: z.string().nullable().optional(),
   created_at: z.int(),
   id: z.string(),
   name: z.string().nullable(),

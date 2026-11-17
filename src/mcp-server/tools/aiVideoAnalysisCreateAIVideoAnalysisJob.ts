@@ -16,12 +16,12 @@ const args = {
 export const tool$aiVideoAnalysisCreateAIVideoAnalysisJob: ToolDefinition<
   typeof args
 > = {
-  name: "AI-video-analysis-create-AI-video-analysis-job",
+  name: "analyze-video",
   description: `Create an AI Video Analysis job
 
 Submits a stored video asset for visual analysis and returns a job you can poll for the result.`,
   annotations: {
-    "title": "",
+    "title": "Analyze Video",
     "destructiveHint": false,
     "idempotentHint": false,
     "openWorldHint": false,
@@ -32,7 +32,7 @@ Submits a stored video asset for visual analysis and returns a job you can poll 
     const [result] = await aiVideoAnalysisCreateAIVideoAnalysisJob(
       client,
       args.request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

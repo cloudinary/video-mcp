@@ -19,6 +19,6 @@ export const AIVideoAnalysisWrappedResponse$zodSchema: z.ZodType<
 > = z.object({
   data: AIVideoAnalysisResponse$zodSchema,
   request_id: z.string().describe(
-    "Unique identifier of the API request, useful for support and debugging.",
+    "A unique id for the request, useful when contacting support.",
   ),
 });

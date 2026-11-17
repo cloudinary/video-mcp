@@ -10,13 +10,13 @@ import {
 } from "./imagetovideopromptresponse.js";
 
 export type ImageToVideoPromptsWrappedResponse = {
-  request_id?: string | undefined;
-  data?: Array<ImageToVideoPromptResponse> | undefined;
+  request_id: string;
+  data: Array<ImageToVideoPromptResponse>;
 };
 
 export const ImageToVideoPromptsWrappedResponse$zodSchema: z.ZodType<
   ImageToVideoPromptsWrappedResponse
 > = z.object({
-  data: z.array(ImageToVideoPromptResponse$zodSchema).optional(),
-  request_id: z.string().optional(),
+  data: z.array(ImageToVideoPromptResponse$zodSchema),
+  request_id: z.string(),
 });

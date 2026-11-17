@@ -13,12 +13,14 @@ import {
   MessageWrappedResponse$zodSchema,
 } from "./messagewrappedresponse.js";
 
-export type DeleteVideoCanvasAppletGlobals = { cloudName?: string | undefined };
+export type DeleteVideoCanvasAppletGlobals = {
+  cloud_name?: string | undefined;
+};
 
 export const DeleteVideoCanvasAppletGlobals$zodSchema: z.ZodType<
   DeleteVideoCanvasAppletGlobals
 > = z.object({
-  cloudName: z.string().describe("The cloud name for your product environment.")
+  cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
 });
 

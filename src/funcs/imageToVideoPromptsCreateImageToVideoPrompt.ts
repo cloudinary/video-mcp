@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function imageToVideoPromptsCreateImageToVideoPrompt(
   client$: CloudinaryVideoCore,
-  request?: ImageToVideoPromptCreatePayload | undefined,
+  request: ImageToVideoPromptCreatePayload,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -57,7 +57,7 @@ export function imageToVideoPromptsCreateImageToVideoPrompt(
 
 async function $do(
   client$: CloudinaryVideoCore,
-  request?: ImageToVideoPromptCreatePayload | undefined,
+  request: ImageToVideoPromptCreatePayload,
   options?: RequestOptions,
 ): Promise<
   [
@@ -76,25 +76,22 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) =>
-      ImageToVideoPromptCreatePayload$zodSchema.optional().parse(value$),
+    (value$) => ImageToVideoPromptCreatePayload$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = payload$ === undefined
-    ? null
-    : encodeJSON("body", payload$, { explode: true });
+  const body$ = encodeJSON("body", payload$, { explode: true });
 
   const pathParams$ = {
-    cloudName: encodeSimple("cloudName", client$._options.cloud_name, {
+    cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
       explode: false,
       charEncoding: "percent",
     }),
   };
-  const path$ = pathToFunc("/v2/video/{cloudName}/image_to_video/prompts")(
+  const path$ = pathToFunc("/v2/video/{cloud_name}/image_to_video/prompts")(
     pathParams$,
   );
 

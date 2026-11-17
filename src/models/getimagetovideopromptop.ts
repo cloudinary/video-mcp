@@ -5,20 +5,20 @@
 
 import * as z from "zod";
 import {
-  ImageToVideoErrorWrappedResponse,
-  ImageToVideoErrorWrappedResponse$zodSchema,
-} from "./imagetovideoerrorwrappedresponse.js";
+  ErrorWrappedResponse,
+  ErrorWrappedResponse$zodSchema,
+} from "./errorwrappedresponse.js";
 import {
   ImageToVideoPromptWrappedResponse,
   ImageToVideoPromptWrappedResponse$zodSchema,
 } from "./imagetovideopromptwrappedresponse.js";
 
-export type GetImageToVideoPromptGlobals = { cloudName?: string | undefined };
+export type GetImageToVideoPromptGlobals = { cloud_name?: string | undefined };
 
 export const GetImageToVideoPromptGlobals$zodSchema: z.ZodType<
   GetImageToVideoPromptGlobals
 > = z.object({
-  cloudName: z.string().describe("The cloud name for your product environment.")
+  cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
 });
 
@@ -31,12 +31,12 @@ export const GetImageToVideoPromptRequest$zodSchema: z.ZodType<
 });
 
 export type GetImageToVideoPromptResponse =
-  | ImageToVideoErrorWrappedResponse
-  | ImageToVideoPromptWrappedResponse;
+  | ImageToVideoPromptWrappedResponse
+  | ErrorWrappedResponse;
 
 export const GetImageToVideoPromptResponse$zodSchema: z.ZodType<
   GetImageToVideoPromptResponse
 > = z.union([
-  ImageToVideoErrorWrappedResponse$zodSchema,
   ImageToVideoPromptWrappedResponse$zodSchema,
+  ErrorWrappedResponse$zodSchema,
 ]);

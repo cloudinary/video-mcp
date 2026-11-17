@@ -3,34 +3,36 @@
  * @generated-id: 28acbb0a9b89
  */
 
+import * as z from "zod";
 import { videoCanvasListVideoCanvasApplets } from "../../funcs/videoCanvasListVideoCanvasApplets.js";
-import { ListVideoCanvasAppletsRequest$zodSchema } from "../../models/listvideocanvasappletsop.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: ListVideoCanvasAppletsRequest$zodSchema.optional(),
+  kind: z.string().describe(
+    "comma-separated applet kinds to return (derived, create); defaults to derived",
+  ).optional(),
 };
 
 export const tool$videoCanvasListVideoCanvasApplets: ToolDefinition<
   typeof args
 > = {
-  name: "video-canvas-list-video-canvas-applets",
+  name: "list-canvas-applets",
   description: `List applets
 
 Returns the account's saved Video Canvas applets as summaries, without their inputs, blocks, connections, or outputs.`,
   annotations: {
-    "title": "",
+    "title": "List Video Canvas Applets",
     "destructiveHint": false,
     "idempotentHint": false,
     "openWorldHint": false,
-    "readOnlyHint": true,
+    "readOnlyHint": false,
   },
   args,
   tool: async (client, args, ctx) => {
     const [result] = await videoCanvasListVideoCanvasApplets(
       client,
-      args.request,
-      { fetchOptions: { signal: ctx.signal } },
+      args.kind,
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

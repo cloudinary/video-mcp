@@ -4,15 +4,10 @@
  */
 
 import * as z from "zod";
-
-/**
- * Editor state, including the block's position.
- */
-export type VideoCanvasBlockResponseMetadata = {};
-
-export const VideoCanvasBlockResponseMetadata$zodSchema: z.ZodType<
-  VideoCanvasBlockResponseMetadata
-> = z.object({}).describe("Editor state, including the block's position.");
+import {
+  VideoCanvasBlockMetadata,
+  VideoCanvasBlockMetadata$zodSchema,
+} from "./videocanvasblockmetadata.js";
 
 /**
  * A node on the canvas, as returned in a response.
@@ -21,7 +16,7 @@ export type VideoCanvasBlockResponse = {
   id?: string | undefined;
   kind?: string | undefined;
   content?: any | undefined;
-  metadata?: VideoCanvasBlockResponseMetadata | undefined;
+  metadata?: VideoCanvasBlockMetadata | undefined;
 };
 
 export const VideoCanvasBlockResponse$zodSchema: z.ZodType<
@@ -34,6 +29,7 @@ export const VideoCanvasBlockResponse$zodSchema: z.ZodType<
   kind: z.string().optional().describe(
     "The block kind (see the block payload for how kind is interpreted).",
   ),
-  metadata: z.lazy(() => VideoCanvasBlockResponseMetadata$zodSchema).optional()
-    .describe("Editor state, including the block's position."),
+  metadata: VideoCanvasBlockMetadata$zodSchema.optional().describe(
+    "Editor state of a block",
+  ),
 }).describe("A node on the canvas, as returned in a response.");

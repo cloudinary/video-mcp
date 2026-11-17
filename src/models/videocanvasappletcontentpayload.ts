@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 import {
   VideoCanvasBlockPayload,
   VideoCanvasBlockPayload$zodSchema,
@@ -22,16 +23,39 @@ import {
 } from "./videocanvasoutputpayload.js";
 
 /**
+ * Applet kind. Derived applets compile into a named transformation; create applets do not. Omit on update to keep the current kind. Switching to create leaves an existing named transformation as is; switching to derived creates or redefines it.
+ */
+export const VideoCanvasAppletContentPayloadKind = {
+  Derived: "derived",
+  Create: "create",
+} as const;
+/**
+ * Applet kind. Derived applets compile into a named transformation; create applets do not. Omit on update to keep the current kind. Switching to create leaves an existing named transformation as is; switching to derived creates or redefines it.
+ */
+export type VideoCanvasAppletContentPayloadKind = ClosedEnum<
+  typeof VideoCanvasAppletContentPayloadKind
+>;
+
+export const VideoCanvasAppletContentPayloadKind$zodSchema = z.enum([
+  "derived",
+  "create",
+]).describe(
+  "Applet kind. Derived applets compile into a named transformation; create applets do not. Omit on update to keep the current kind. Switching to create leaves an existing named transformation as is; switching to derived creates or redefines it.",
+);
+
+/**
  * The full content of a Video Canvas applet: its inputs, blocks,
  *
  * @remarks
  * connections, and outputs. The blocks are ordered by the connections and
- * their action-group content is compiled into a Cloudinary named
- * transformation.
+ * their action-group content is compiled to validate it. For derived
+ * applets, the result is saved as a Cloudinary named transformation;
+ * create applets don't get one.
  */
 export type VideoCanvasAppletContentPayload = {
   name: string;
   description?: string | undefined;
+  kind?: VideoCanvasAppletContentPayloadKind | undefined;
   inputs?: Array<VideoCanvasInputPayload> | undefined;
   blocks: Array<VideoCanvasBlockPayload>;
   connections?: Array<VideoCanvasConnectionPayload> | undefined;
@@ -52,10 +76,14 @@ export const VideoCanvasAppletContentPayload$zodSchema: z.ZodType<
   inputs: z.array(VideoCanvasInputPayload$zodSchema).optional().describe(
     "The applet's declared parameters.",
   ),
+  kind: VideoCanvasAppletContentPayloadKind$zodSchema.default("derived")
+    .describe(
+      "Applet kind. Derived applets compile into a named transformation; create applets do not. Omit on update to keep the current kind. Switching to create leaves an existing named transformation as is; switching to derived creates or redefines it.",
+    ),
   name: z.string().describe("A display name for the applet."),
   outputs: z.array(VideoCanvasOutputPayload$zodSchema).optional().describe(
     "The applet's declared results.",
   ),
 }).describe(
-  "The full content of a Video Canvas applet: its inputs, blocks,\nconnections, and outputs. The blocks are ordered by the connections and\ntheir action-group content is compiled into a Cloudinary named\ntransformation.\n",
+  "The full content of a Video Canvas applet: its inputs, blocks,\nconnections, and outputs. The blocks are ordered by the connections and\ntheir action-group content is compiled to validate it. For derived\napplets, the result is saved as a Cloudinary named transformation;\ncreate applets don't get one.\n",
 );

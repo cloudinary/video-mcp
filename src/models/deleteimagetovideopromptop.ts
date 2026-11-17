@@ -5,22 +5,22 @@
 
 import * as z from "zod";
 import {
-  ImageToVideoErrorWrappedResponse,
-  ImageToVideoErrorWrappedResponse$zodSchema,
-} from "./imagetovideoerrorwrappedresponse.js";
+  ErrorWrappedResponse,
+  ErrorWrappedResponse$zodSchema,
+} from "./errorwrappedresponse.js";
 import {
-  ImageToVideoMessageWrappedResponse,
-  ImageToVideoMessageWrappedResponse$zodSchema,
-} from "./imagetovideomessagewrappedresponse.js";
+  MessageWrappedResponse,
+  MessageWrappedResponse$zodSchema,
+} from "./messagewrappedresponse.js";
 
 export type DeleteImageToVideoPromptGlobals = {
-  cloudName?: string | undefined;
+  cloud_name?: string | undefined;
 };
 
 export const DeleteImageToVideoPromptGlobals$zodSchema: z.ZodType<
   DeleteImageToVideoPromptGlobals
 > = z.object({
-  cloudName: z.string().describe("The cloud name for your product environment.")
+  cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
 });
 
@@ -33,12 +33,12 @@ export const DeleteImageToVideoPromptRequest$zodSchema: z.ZodType<
 });
 
 export type DeleteImageToVideoPromptResponse =
-  | ImageToVideoMessageWrappedResponse
-  | ImageToVideoErrorWrappedResponse;
+  | MessageWrappedResponse
+  | ErrorWrappedResponse;
 
 export const DeleteImageToVideoPromptResponse$zodSchema: z.ZodType<
   DeleteImageToVideoPromptResponse
 > = z.union([
-  ImageToVideoMessageWrappedResponse$zodSchema,
-  ImageToVideoErrorWrappedResponse$zodSchema,
+  MessageWrappedResponse$zodSchema,
+  ErrorWrappedResponse$zodSchema,
 ]);

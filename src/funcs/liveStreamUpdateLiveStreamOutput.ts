@@ -34,7 +34,7 @@ export function liveStreamUpdateLiveStreamOutput(
   client$: CloudinaryVideoCore,
   liveStreamId: string,
   liveStreamOutputId: string,
-  LiveStreamOutputUpdatePayload?: LiveStreamOutputUpdatePayload | undefined,
+  LiveStreamOutputUpdatePayload: LiveStreamOutputUpdatePayload,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -61,7 +61,7 @@ async function $do(
   client$: CloudinaryVideoCore,
   liveStreamId: string,
   liveStreamOutputId: string,
-  LiveStreamOutputUpdatePayload?: LiveStreamOutputUpdatePayload | undefined,
+  LiveStreamOutputUpdatePayload: LiveStreamOutputUpdatePayload,
   options?: RequestOptions,
 ): Promise<
   [
@@ -98,7 +98,7 @@ async function $do(
   });
 
   const pathParams$ = {
-    cloudName: encodeSimple("cloudName", client$._options.cloud_name, {
+    cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
       explode: false,
       charEncoding: "percent",
     }),
@@ -113,7 +113,7 @@ async function $do(
     ),
   };
   const path$ = pathToFunc(
-    "/v2/video/{cloudName}/live_streams/{liveStreamId}/outputs/{liveStreamOutputId}",
+    "/v2/video/{cloud_name}/live_streams/{liveStreamId}/outputs/{liveStreamOutputId}",
   )(
     pathParams$,
   );

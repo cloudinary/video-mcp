@@ -75,6 +75,8 @@ export type ImageToVideoGeneratePayload = {
   enhance_prompt?: boolean | null | undefined;
   last_frame_image_asset_id?: string | undefined;
   reference_image_asset_ids?: Array<string> | undefined;
+  folder?: string | undefined;
+  negative_prompt?: Array<string> | undefined;
 };
 
 export const ImageToVideoGeneratePayload$zodSchema: z.ZodType<
@@ -89,6 +91,9 @@ export const ImageToVideoGeneratePayload$zodSchema: z.ZodType<
   enhance_prompt: z.boolean().default(true).nullable().describe(
     "Whether to let Cloudinary automatically enhance the prompt.",
   ),
+  folder: z.string().default("image-to-video").describe(
+    "Path of the folder to save the generated video to, for example `campaigns/spring`. If the folder doesn't exist, it's created.",
+  ),
   generate_audio: z.boolean().default(false).describe(
     "Whether to generate audio. Enabling audio consumes twice as many credits.",
   ),
@@ -97,6 +102,9 @@ export const ImageToVideoGeneratePayload$zodSchema: z.ZodType<
   ),
   last_frame_image_asset_id: z.string().optional().describe(
     "Cloudinary asset ID of the last frame image.",
+  ),
+  negative_prompt: z.array(z.string()).optional().describe(
+    "Elements the video should avoid, for example `watermark` or `flickering`. Items must not be blank. If omitted, a default list of common artifacts is applied. Send an empty array to apply none.",
   ),
   prompt: z.string().describe("Video description prompt."),
   reference_image_asset_ids: z.array(z.string()).optional().describe(

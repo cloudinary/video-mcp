@@ -14,23 +14,23 @@ const args = {
 export const tool$imageToVideoPromptsGetImageToVideoPrompts: ToolDefinition<
   typeof args
 > = {
-  name: "image-to-video-prompts-get-image-to-video-prompts",
+  name: "list-image-to-video-prompts",
   description: `Get a list of image to video prompts
 
 Returns all saved image-to-video prompts for your product environment.`,
   annotations: {
-    "title": "",
+    "title": "List Image-to-Video Prompts",
     "destructiveHint": false,
     "idempotentHint": false,
     "openWorldHint": false,
-    "readOnlyHint": true,
+    "readOnlyHint": false,
   },
   args,
   tool: async (client, args, ctx) => {
     const [result] = await imageToVideoPromptsGetImageToVideoPrompts(
       client,
       args.request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

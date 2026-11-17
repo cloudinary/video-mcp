@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
 export function liveStreamCreateLiveStreamOutput(
   client$: CloudinaryVideoCore,
   liveStreamId: string,
-  LiveStreamOutputCreatePayload?: LiveStreamOutputCreatePayload | undefined,
+  LiveStreamOutputCreatePayload: LiveStreamOutputCreatePayload,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -58,7 +58,7 @@ export function liveStreamCreateLiveStreamOutput(
 async function $do(
   client$: CloudinaryVideoCore,
   liveStreamId: string,
-  LiveStreamOutputCreatePayload?: LiveStreamOutputCreatePayload | undefined,
+  LiveStreamOutputCreatePayload: LiveStreamOutputCreatePayload,
   options?: RequestOptions,
 ): Promise<
   [
@@ -94,7 +94,7 @@ async function $do(
   });
 
   const pathParams$ = {
-    cloudName: encodeSimple("cloudName", client$._options.cloud_name, {
+    cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
       explode: false,
       charEncoding: "percent",
     }),
@@ -104,7 +104,7 @@ async function $do(
     }),
   };
   const path$ = pathToFunc(
-    "/v2/video/{cloudName}/live_streams/{liveStreamId}/outputs",
+    "/v2/video/{cloud_name}/live_streams/{liveStreamId}/outputs",
   )(
     pathParams$,
   );

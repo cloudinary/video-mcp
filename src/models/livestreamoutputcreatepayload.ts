@@ -11,12 +11,14 @@ export type LiveStreamOutputCreatePayload = {
   uri?: string | null | undefined;
   stream_key?: string | null | undefined;
   vendor?: string | null | undefined;
+  asset_folder?: string | null | undefined;
   public_id?: string | null | undefined;
 };
 
 export const LiveStreamOutputCreatePayload$zodSchema: z.ZodType<
   LiveStreamOutputCreatePayload
 > = z.object({
+  asset_folder: z.string().nullable().optional(),
   name: z.string().nullable().optional(),
   public_id: z.string().nullable().optional(),
   stream_key: z.string().nullable().optional(),

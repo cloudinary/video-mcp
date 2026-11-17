@@ -5,32 +5,32 @@
 
 import * as z from "zod";
 import {
-  ImageToVideoErrorWrappedResponse,
-  ImageToVideoErrorWrappedResponse$zodSchema,
-} from "./imagetovideoerrorwrappedresponse.js";
+  ErrorWrappedResponse,
+  ErrorWrappedResponse$zodSchema,
+} from "./errorwrappedresponse.js";
 import {
   ImageToVideoPromptWrappedResponse,
   ImageToVideoPromptWrappedResponse$zodSchema,
 } from "./imagetovideopromptwrappedresponse.js";
 
 export type CreateImageToVideoPromptGlobals = {
-  cloudName?: string | undefined;
+  cloud_name?: string | undefined;
 };
 
 export const CreateImageToVideoPromptGlobals$zodSchema: z.ZodType<
   CreateImageToVideoPromptGlobals
 > = z.object({
-  cloudName: z.string().describe("The cloud name for your product environment.")
+  cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
 });
 
 export type CreateImageToVideoPromptResponse =
-  | ImageToVideoErrorWrappedResponse
-  | ImageToVideoPromptWrappedResponse;
+  | ImageToVideoPromptWrappedResponse
+  | ErrorWrappedResponse;
 
 export const CreateImageToVideoPromptResponse$zodSchema: z.ZodType<
   CreateImageToVideoPromptResponse
 > = z.union([
-  ImageToVideoErrorWrappedResponse$zodSchema,
   ImageToVideoPromptWrappedResponse$zodSchema,
+  ErrorWrappedResponse$zodSchema,
 ]);

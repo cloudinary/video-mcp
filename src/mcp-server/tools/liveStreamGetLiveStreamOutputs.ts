@@ -13,21 +13,21 @@ const args = {
 
 export const tool$liveStreamGetLiveStreamOutputs: ToolDefinition<typeof args> =
   {
-    name: "live-stream-get-live-stream-outputs",
+    name: "list-live-stream-outputs",
     description: `Get a list of live stream outputs`,
     annotations: {
-      "title": "",
+      "title": "List Live Stream Outputs",
       "destructiveHint": false,
       "idempotentHint": false,
       "openWorldHint": false,
-      "readOnlyHint": true,
+      "readOnlyHint": false,
     },
     args,
     tool: async (client, args, ctx) => {
       const [result] = await liveStreamGetLiveStreamOutputs(
         client,
         args.liveStreamId,
-        { fetchOptions: { signal: ctx.signal } },
+        { fetchOptions: { signal: ctx.mcpReq.signal } },
       ).$inspect();
 
       if (!result.ok) {

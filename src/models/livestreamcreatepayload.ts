@@ -5,6 +5,10 @@
 
 import * as z from "zod";
 import {
+  LiveStreamEmbeddedCaption,
+  LiveStreamEmbeddedCaption$zodSchema,
+} from "./livestreamembeddedcaption.js";
+import {
   LiveStreamInputCreatePayload,
   LiveStreamInputCreatePayload$zodSchema,
 } from "./livestreaminputcreatepayload.js";
@@ -14,11 +18,14 @@ export type LiveStreamCreatePayload = {
   input: LiveStreamInputCreatePayload;
   idle_timeout_sec?: number | null | undefined;
   max_runtime_sec?: number | null | undefined;
+  embedded_captions?: Array<LiveStreamEmbeddedCaption> | null | undefined;
 };
 
 export const LiveStreamCreatePayload$zodSchema: z.ZodType<
   LiveStreamCreatePayload
 > = z.object({
+  embedded_captions: z.array(LiveStreamEmbeddedCaption$zodSchema).nullable()
+    .optional(),
   idle_timeout_sec: z.int().nullable().optional(),
   input: LiveStreamInputCreatePayload$zodSchema,
   max_runtime_sec: z.int().nullable().optional(),

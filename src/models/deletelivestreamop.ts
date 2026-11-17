@@ -5,20 +5,20 @@
 
 import * as z from "zod";
 import {
-  LiveStreamErrorWrappedResponse,
-  LiveStreamErrorWrappedResponse$zodSchema,
-} from "./livestreamerrorwrappedresponse.js";
+  ErrorWrappedResponse,
+  ErrorWrappedResponse$zodSchema,
+} from "./errorwrappedresponse.js";
 import {
-  LiveStreamMessageWrappedResponse,
-  LiveStreamMessageWrappedResponse$zodSchema,
-} from "./livestreammessagewrappedresponse.js";
+  MessageWrappedResponse,
+  MessageWrappedResponse$zodSchema,
+} from "./messagewrappedresponse.js";
 
-export type DeleteLiveStreamGlobals = { cloudName?: string | undefined };
+export type DeleteLiveStreamGlobals = { cloud_name?: string | undefined };
 
 export const DeleteLiveStreamGlobals$zodSchema: z.ZodType<
   DeleteLiveStreamGlobals
 > = z.object({
-  cloudName: z.string().describe("The cloud name for your product environment.")
+  cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
 });
 
@@ -31,12 +31,12 @@ export const DeleteLiveStreamRequest$zodSchema: z.ZodType<
 });
 
 export type DeleteLiveStreamResponse =
-  | LiveStreamMessageWrappedResponse
-  | LiveStreamErrorWrappedResponse;
+  | MessageWrappedResponse
+  | ErrorWrappedResponse;
 
 export const DeleteLiveStreamResponse$zodSchema: z.ZodType<
   DeleteLiveStreamResponse
 > = z.union([
-  LiveStreamMessageWrappedResponse$zodSchema,
-  LiveStreamErrorWrappedResponse$zodSchema,
+  MessageWrappedResponse$zodSchema,
+  ErrorWrappedResponse$zodSchema,
 ]);

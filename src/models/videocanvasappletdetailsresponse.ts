@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 import {
   VideoCanvasBlockResponse,
   VideoCanvasBlockResponse$zodSchema,
@@ -21,6 +22,19 @@ import {
   VideoCanvasOutputResponse$zodSchema,
 } from "./videocanvasoutputresponse.js";
 
+export const VideoCanvasAppletDetailsResponseKind = {
+  Derived: "derived",
+  Create: "create",
+} as const;
+export type VideoCanvasAppletDetailsResponseKind = ClosedEnum<
+  typeof VideoCanvasAppletDetailsResponseKind
+>;
+
+export const VideoCanvasAppletDetailsResponseKind$zodSchema = z.enum([
+  "derived",
+  "create",
+]);
+
 /**
  * A saved applet with its full content.
  */
@@ -28,6 +42,7 @@ export type VideoCanvasAppletDetailsResponse = {
   id?: string | undefined;
   name?: string | undefined;
   description?: string | undefined;
+  kind?: VideoCanvasAppletDetailsResponseKind | undefined;
   named_transformation?: string | undefined;
   created_at?: number | undefined;
   updated_at?: number | undefined;
@@ -46,7 +61,7 @@ export const VideoCanvasAppletDetailsResponse$zodSchema: z.ZodType<
   connections: z.array(VideoCanvasConnectionResponse$zodSchema).optional()
     .describe("The directed edges between block ports."),
   created_at: z.int().optional().describe(
-    "Creation time, as a Unix timestamp in seconds.",
+    "Creation time, as a Unix timestamp in milliseconds.",
   ),
   description: z.string().optional().describe("The applet's description."),
   id: z.string().optional().describe(
@@ -55,14 +70,15 @@ export const VideoCanvasAppletDetailsResponse$zodSchema: z.ZodType<
   inputs: z.array(VideoCanvasInputResponse$zodSchema).optional().describe(
     "The applet's declared parameters.",
   ),
+  kind: VideoCanvasAppletDetailsResponseKind$zodSchema.optional(),
   name: z.string().optional().describe("The applet's display name."),
   named_transformation: z.string().optional().describe(
-    "The name of the named transformation that backs the applet.",
+    "The name of the named transformation that backs a derived applet. Omitted for create applets.",
   ),
   outputs: z.array(VideoCanvasOutputResponse$zodSchema).optional().describe(
     "The applet's declared results.",
   ),
   updated_at: z.int().optional().describe(
-    "Last-modified time, as a Unix timestamp in seconds.",
+    "Last-modified time, as a Unix timestamp in milliseconds.",
   ),
 }).describe("A saved applet with its full content.");

@@ -86,12 +86,12 @@ async function $do(
   const body$ = encodeJSON("body", payload$, { explode: true });
 
   const pathParams$ = {
-    cloudName: encodeSimple("cloudName", client$._options.cloud_name, {
+    cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
       explode: false,
       charEncoding: "percent",
     }),
   };
-  const path$ = pathToFunc("/v2/video/{cloudName}/image_to_video/generate")(
+  const path$ = pathToFunc("/v2/video/{cloud_name}/image_to_video/generate")(
     pathParams$,
   );
 

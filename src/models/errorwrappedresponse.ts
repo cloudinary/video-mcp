@@ -4,30 +4,23 @@
  */
 
 import * as z from "zod";
-
-/**
- * Details about the error.
- */
-export type ErrorWrappedResponseError = { message?: string | undefined };
-
-export const ErrorWrappedResponseError$zodSchema: z.ZodType<
-  ErrorWrappedResponseError
-> = z.object({
-  message: z.string().optional().describe("A human-readable error message."),
-}).describe("Details about the error.");
+import {
+  MessageWrappedResponseData,
+  MessageWrappedResponseData$zodSchema,
+} from "./messagewrappedresponsedata.js";
 
 /**
  * A response envelope returned when a request fails.
  */
 export type ErrorWrappedResponse = {
   request_id: string;
-  error: ErrorWrappedResponseError;
+  error: MessageWrappedResponseData;
 };
 
 export const ErrorWrappedResponse$zodSchema: z.ZodType<ErrorWrappedResponse> = z
   .object({
-    error: z.lazy(() => ErrorWrappedResponseError$zodSchema).describe(
-      "Details about the error.",
+    error: MessageWrappedResponseData$zodSchema.describe(
+      "An object carrying a human-readable message.",
     ),
     request_id: z.string().describe(
       "A unique id for the request, useful when contacting support.",

@@ -14,14 +14,14 @@ const args = {
 export const tool$videoCanvasDeleteVideoCanvasApplet: ToolDefinition<
   typeof args
 > = {
-  name: "video-canvas-delete-video-canvas-applet",
+  name: "delete-canvas-applet",
   description: `Delete an applet
 
-Deletes an applet and its stored content. The named transformation that backs the applet isn't deleted, so delivery URLs and SDK calls that reference it keep working. To stop delivering the transformation, delete the named transformation separately.`,
+Deletes an applet and its stored content. For a derived applet, the named transformation that backs it isn't deleted, so delivery URLs and SDK calls that reference it keep working. To stop delivering the transformation, delete the named transformation separately.`,
   annotations: {
-    "title": "",
-    "destructiveHint": true,
-    "idempotentHint": false,
+    "title": "Delete Video Canvas Applet",
+    "destructiveHint": false,
+    "idempotentHint": true,
     "openWorldHint": false,
     "readOnlyHint": false,
   },
@@ -30,7 +30,7 @@ Deletes an applet and its stored content. The named transformation that backs th
     const [result] = await videoCanvasDeleteVideoCanvasApplet(
       client,
       args.appletId,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

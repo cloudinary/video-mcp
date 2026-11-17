@@ -5,20 +5,20 @@
 
 import * as z from "zod";
 import {
-  LiveStreamErrorWrappedResponse,
-  LiveStreamErrorWrappedResponse$zodSchema,
-} from "./livestreamerrorwrappedresponse.js";
+  ErrorWrappedResponse,
+  ErrorWrappedResponse$zodSchema,
+} from "./errorwrappedresponse.js";
 import {
-  LiveStreamMessageWrappedResponse,
-  LiveStreamMessageWrappedResponse$zodSchema,
-} from "./livestreammessagewrappedresponse.js";
+  MessageWrappedResponse,
+  MessageWrappedResponse$zodSchema,
+} from "./messagewrappedresponse.js";
 
-export type IdleLiveStreamGlobals = { cloudName?: string | undefined };
+export type IdleLiveStreamGlobals = { cloud_name?: string | undefined };
 
 export const IdleLiveStreamGlobals$zodSchema: z.ZodType<IdleLiveStreamGlobals> =
   z.object({
-    cloudName: z.string().describe(
-      "The cloud name for your product environment.",
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
     ).optional(),
   });
 
@@ -30,12 +30,12 @@ export const IdleLiveStreamRequest$zodSchema: z.ZodType<IdleLiveStreamRequest> =
   });
 
 export type IdleLiveStreamResponse =
-  | LiveStreamMessageWrappedResponse
-  | LiveStreamErrorWrappedResponse;
+  | MessageWrappedResponse
+  | ErrorWrappedResponse;
 
 export const IdleLiveStreamResponse$zodSchema: z.ZodType<
   IdleLiveStreamResponse
 > = z.union([
-  LiveStreamMessageWrappedResponse$zodSchema,
-  LiveStreamErrorWrappedResponse$zodSchema,
+  MessageWrappedResponse$zodSchema,
+  ErrorWrappedResponse$zodSchema,
 ]);

@@ -87,7 +87,7 @@ async function $do(
   const body$ = null;
 
   const pathParams$ = {
-    cloudName: encodeSimple("cloudName", client$._options.cloud_name, {
+    cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
       explode: false,
       charEncoding: "percent",
     }),
@@ -96,7 +96,9 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path$ = pathToFunc("/v2/video/{cloudName}/live_streams/{liveStreamId}")(
+  const path$ = pathToFunc(
+    "/v2/video/{cloud_name}/live_streams/{liveStreamId}",
+  )(
     pathParams$,
   );
 

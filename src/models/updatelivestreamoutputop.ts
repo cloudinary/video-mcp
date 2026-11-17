@@ -5,9 +5,9 @@
 
 import * as z from "zod";
 import {
-  LiveStreamErrorWrappedResponse,
-  LiveStreamErrorWrappedResponse$zodSchema,
-} from "./livestreamerrorwrappedresponse.js";
+  ErrorWrappedResponse,
+  ErrorWrappedResponse$zodSchema,
+} from "./errorwrappedresponse.js";
 import {
   LiveStreamOutputUpdatePayload,
   LiveStreamOutputUpdatePayload$zodSchema,
@@ -17,37 +17,36 @@ import {
   LiveStreamOutputWrappedResponse$zodSchema,
 } from "./livestreamoutputwrappedresponse.js";
 
-export type UpdateLiveStreamOutputGlobals = { cloudName?: string | undefined };
+export type UpdateLiveStreamOutputGlobals = { cloud_name?: string | undefined };
 
 export const UpdateLiveStreamOutputGlobals$zodSchema: z.ZodType<
   UpdateLiveStreamOutputGlobals
 > = z.object({
-  cloudName: z.string().describe("The cloud name for your product environment.")
+  cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
 });
 
 export type UpdateLiveStreamOutputRequest = {
   liveStreamId: string;
   liveStreamOutputId: string;
-  LiveStreamOutputUpdatePayload?: LiveStreamOutputUpdatePayload | undefined;
+  LiveStreamOutputUpdatePayload: LiveStreamOutputUpdatePayload;
 };
 
 export const UpdateLiveStreamOutputRequest$zodSchema: z.ZodType<
   UpdateLiveStreamOutputRequest
 > = z.object({
-  LiveStreamOutputUpdatePayload: LiveStreamOutputUpdatePayload$zodSchema
-    .optional(),
+  LiveStreamOutputUpdatePayload: LiveStreamOutputUpdatePayload$zodSchema,
   liveStreamId: z.string().describe("live stream id"),
   liveStreamOutputId: z.string().describe("live stream output id"),
 });
 
 export type UpdateLiveStreamOutputResponse =
   | LiveStreamOutputWrappedResponse
-  | LiveStreamErrorWrappedResponse;
+  | ErrorWrappedResponse;
 
 export const UpdateLiveStreamOutputResponse$zodSchema: z.ZodType<
   UpdateLiveStreamOutputResponse
 > = z.union([
   LiveStreamOutputWrappedResponse$zodSchema,
-  LiveStreamErrorWrappedResponse$zodSchema,
+  ErrorWrappedResponse$zodSchema,
 ]);

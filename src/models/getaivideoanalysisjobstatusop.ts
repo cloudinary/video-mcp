@@ -5,22 +5,22 @@
 
 import * as z from "zod";
 import {
-  AIVideoAnalysisErrorWrappedResponse,
-  AIVideoAnalysisErrorWrappedResponse$zodSchema,
-} from "./aivideoanalysiserrorwrappedresponse.js";
-import {
   AIVideoAnalysisWrappedResponse,
   AIVideoAnalysisWrappedResponse$zodSchema,
 } from "./aivideoanalysiswrappedresponse.js";
+import {
+  ErrorWrappedResponse,
+  ErrorWrappedResponse$zodSchema,
+} from "./errorwrappedresponse.js";
 
 export type GetAIVideoAnalysisJobStatusGlobals = {
-  cloudName?: string | undefined;
+  cloud_name?: string | undefined;
 };
 
 export const GetAIVideoAnalysisJobStatusGlobals$zodSchema: z.ZodType<
   GetAIVideoAnalysisJobStatusGlobals
 > = z.object({
-  cloudName: z.string().describe("The cloud name for your product environment.")
+  cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
 });
 
@@ -36,11 +36,11 @@ export const GetAIVideoAnalysisJobStatusRequest$zodSchema: z.ZodType<
 
 export type GetAIVideoAnalysisJobStatusResponse =
   | AIVideoAnalysisWrappedResponse
-  | AIVideoAnalysisErrorWrappedResponse;
+  | ErrorWrappedResponse;
 
 export const GetAIVideoAnalysisJobStatusResponse$zodSchema: z.ZodType<
   GetAIVideoAnalysisJobStatusResponse
 > = z.union([
   AIVideoAnalysisWrappedResponse$zodSchema,
-  AIVideoAnalysisErrorWrappedResponse$zodSchema,
+  ErrorWrappedResponse$zodSchema,
 ]);

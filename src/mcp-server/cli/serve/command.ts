@@ -68,6 +68,14 @@ export const serveCommand = buildCommand({
           return z.string().parse(value);
         },
       },
+      oauth2: {
+        kind: "parsed",
+        brief: "Sets the oauth2 auth field for the API",
+        optional: true,
+        parse: (value) => {
+          return z.string().parse(value);
+        },
+      },
       "cloud-name": {
         kind: "parsed",
         brief:

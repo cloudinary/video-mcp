@@ -12,10 +12,10 @@ const args = {
 };
 
 export const tool$liveStreamIdleLiveStream: ToolDefinition<typeof args> = {
-  name: "live-stream-idle-live-stream",
+  name: "idle-live-stream",
   description: `Manually idle a live stream`,
   annotations: {
-    "title": "",
+    "title": "Idle Live Stream",
     "destructiveHint": false,
     "idempotentHint": false,
     "openWorldHint": false,
@@ -26,7 +26,7 @@ export const tool$liveStreamIdleLiveStream: ToolDefinition<typeof args> = {
     const [result] = await liveStreamIdleLiveStream(
       client,
       args.liveStreamId,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

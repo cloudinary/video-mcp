@@ -16,12 +16,12 @@ const args = {
 export const tool$videoGenerateCreateVideoGenerateJob: ToolDefinition<
   typeof args
 > = {
-  name: "video-generate-create-video-generate-job",
+  name: "generate-video-from-image",
   description: `Create a video generation job
 
 Submits an image and prompt for video generation and returns a job you can poll for the result.`,
   annotations: {
-    "title": "",
+    "title": "Generate Video from Image",
     "destructiveHint": false,
     "idempotentHint": false,
     "openWorldHint": false,
@@ -32,7 +32,7 @@ Submits an image and prompt for video generation and returns a job you can poll 
     const [result] = await videoGenerateCreateVideoGenerateJob(
       client,
       args.request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

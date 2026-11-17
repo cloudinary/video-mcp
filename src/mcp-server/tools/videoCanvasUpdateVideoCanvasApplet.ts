@@ -17,14 +17,14 @@ const args = {
 export const tool$videoCanvasUpdateVideoCanvasApplet: ToolDefinition<
   typeof args
 > = {
-  name: "video-canvas-update-video-canvas-applet",
+  name: "replace-canvas-applet",
   description: `Replace an applet's content
 
-Replaces the full content of an existing applet and recompiles its backing named transformation.`,
+Replaces the full content of an existing applet and recompiles its action blocks to validate them. For a derived applet, its backing named transformation is also updated.`,
   annotations: {
-    "title": "",
+    "title": "Replace Video Canvas Applet",
     "destructiveHint": false,
-    "idempotentHint": false,
+    "idempotentHint": true,
     "openWorldHint": false,
     "readOnlyHint": false,
   },
@@ -34,7 +34,7 @@ Replaces the full content of an existing applet and recompiles its backing named
       client,
       args.appletId,
       args.VideoCanvasAppletContentPayload,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

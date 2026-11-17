@@ -11,7 +11,7 @@ import { formatResult, ToolDefinition } from "../tools.js";
 const args = {
   promptId: z.string().describe("The ID of the image-to-video prompt."),
   ImageToVideoPromptUpdatePayload: ImageToVideoPromptUpdatePayload$zodSchema
-    .optional().describe(
+    .describe(
       `A JSON object with the fields to update (display name and/or prompt text).`,
     ),
 };
@@ -19,14 +19,14 @@ const args = {
 export const tool$imageToVideoPromptsUpdateImageToVideoPrompt: ToolDefinition<
   typeof args
 > = {
-  name: "image-to-video-prompts-update-image-to-video-prompt",
+  name: "update-image-to-video-prompt",
   description: `Update an image to video prompt
 
 Updates the display name and/or prompt text of a saved prompt.`,
   annotations: {
-    "title": "",
+    "title": "Update Image-to-Video Prompt",
     "destructiveHint": false,
-    "idempotentHint": false,
+    "idempotentHint": true,
     "openWorldHint": false,
     "readOnlyHint": false,
   },
@@ -36,7 +36,7 @@ Updates the display name and/or prompt text of a saved prompt.`,
       client,
       args.promptId,
       args.ImageToVideoPromptUpdatePayload,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

@@ -12,10 +12,10 @@ const args = {
 };
 
 export const tool$liveStreamActivateLiveStream: ToolDefinition<typeof args> = {
-  name: "live-stream-activate-live-stream",
+  name: "activate-live-stream",
   description: `Manually activate a live stream`,
   annotations: {
-    "title": "",
+    "title": "Activate Live Stream",
     "destructiveHint": false,
     "idempotentHint": false,
     "openWorldHint": false,
@@ -26,7 +26,7 @@ export const tool$liveStreamActivateLiveStream: ToolDefinition<typeof args> = {
     const [result] = await liveStreamActivateLiveStream(
       client,
       args.liveStreamId,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

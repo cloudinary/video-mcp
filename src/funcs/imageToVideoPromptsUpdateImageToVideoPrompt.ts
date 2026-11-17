@@ -36,7 +36,7 @@ import { Result } from "../types/fp.js";
 export function imageToVideoPromptsUpdateImageToVideoPrompt(
   client$: CloudinaryVideoCore,
   promptId: string,
-  ImageToVideoPromptUpdatePayload?: ImageToVideoPromptUpdatePayload | undefined,
+  ImageToVideoPromptUpdatePayload: ImageToVideoPromptUpdatePayload,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -61,7 +61,7 @@ export function imageToVideoPromptsUpdateImageToVideoPrompt(
 async function $do(
   client$: CloudinaryVideoCore,
   promptId: string,
-  ImageToVideoPromptUpdatePayload?: ImageToVideoPromptUpdatePayload | undefined,
+  ImageToVideoPromptUpdatePayload: ImageToVideoPromptUpdatePayload,
   options?: RequestOptions,
 ): Promise<
   [
@@ -97,7 +97,7 @@ async function $do(
   });
 
   const pathParams$ = {
-    cloudName: encodeSimple("cloudName", client$._options.cloud_name, {
+    cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
       explode: false,
       charEncoding: "percent",
     }),
@@ -107,7 +107,7 @@ async function $do(
     }),
   };
   const path$ = pathToFunc(
-    "/v2/video/{cloudName}/image_to_video/prompts/{promptId}",
+    "/v2/video/{cloud_name}/image_to_video/prompts/{promptId}",
   )(
     pathParams$,
   );

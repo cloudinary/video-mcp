@@ -5,9 +5,9 @@
 
 import * as z from "zod";
 import {
-  ImageToVideoErrorWrappedResponse,
-  ImageToVideoErrorWrappedResponse$zodSchema,
-} from "./imagetovideoerrorwrappedresponse.js";
+  ErrorWrappedResponse,
+  ErrorWrappedResponse$zodSchema,
+} from "./errorwrappedresponse.js";
 import {
   ImageToVideoPromptUpdatePayload,
   ImageToVideoPromptUpdatePayload$zodSchema,
@@ -18,38 +18,38 @@ import {
 } from "./imagetovideopromptwrappedresponse.js";
 
 export type UpdateImageToVideoPromptGlobals = {
-  cloudName?: string | undefined;
+  cloud_name?: string | undefined;
 };
 
 export const UpdateImageToVideoPromptGlobals$zodSchema: z.ZodType<
   UpdateImageToVideoPromptGlobals
 > = z.object({
-  cloudName: z.string().describe("The cloud name for your product environment.")
+  cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
 });
 
 export type UpdateImageToVideoPromptRequest = {
   promptId: string;
-  ImageToVideoPromptUpdatePayload?: ImageToVideoPromptUpdatePayload | undefined;
+  ImageToVideoPromptUpdatePayload: ImageToVideoPromptUpdatePayload;
 };
 
 export const UpdateImageToVideoPromptRequest$zodSchema: z.ZodType<
   UpdateImageToVideoPromptRequest
 > = z.object({
   ImageToVideoPromptUpdatePayload: ImageToVideoPromptUpdatePayload$zodSchema
-    .optional().describe(
+    .describe(
       "A JSON object with the fields to update (display name and/or prompt text).",
     ),
   promptId: z.string().describe("The ID of the image-to-video prompt."),
 });
 
 export type UpdateImageToVideoPromptResponse =
-  | ImageToVideoErrorWrappedResponse
-  | ImageToVideoPromptWrappedResponse;
+  | ImageToVideoPromptWrappedResponse
+  | ErrorWrappedResponse;
 
 export const UpdateImageToVideoPromptResponse$zodSchema: z.ZodType<
   UpdateImageToVideoPromptResponse
 > = z.union([
-  ImageToVideoErrorWrappedResponse$zodSchema,
   ImageToVideoPromptWrappedResponse$zodSchema,
+  ErrorWrappedResponse$zodSchema,
 ]);

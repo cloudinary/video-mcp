@@ -5,32 +5,32 @@
 
 import * as z from "zod";
 import {
-  AIVideoAnalysisErrorWrappedResponse,
-  AIVideoAnalysisErrorWrappedResponse$zodSchema,
-} from "./aivideoanalysiserrorwrappedresponse.js";
-import {
   AIVideoAnalysisWrappedResponse,
   AIVideoAnalysisWrappedResponse$zodSchema,
 } from "./aivideoanalysiswrappedresponse.js";
+import {
+  ErrorWrappedResponse,
+  ErrorWrappedResponse$zodSchema,
+} from "./errorwrappedresponse.js";
 
 export type CreateAIVideoAnalysisJobGlobals = {
-  cloudName?: string | undefined;
+  cloud_name?: string | undefined;
 };
 
 export const CreateAIVideoAnalysisJobGlobals$zodSchema: z.ZodType<
   CreateAIVideoAnalysisJobGlobals
 > = z.object({
-  cloudName: z.string().describe("The cloud name for your product environment.")
+  cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
 });
 
 export type CreateAIVideoAnalysisJobResponse =
   | AIVideoAnalysisWrappedResponse
-  | AIVideoAnalysisErrorWrappedResponse;
+  | ErrorWrappedResponse;
 
 export const CreateAIVideoAnalysisJobResponse$zodSchema: z.ZodType<
   CreateAIVideoAnalysisJobResponse
 > = z.union([
   AIVideoAnalysisWrappedResponse$zodSchema,
-  AIVideoAnalysisErrorWrappedResponse$zodSchema,
+  ErrorWrappedResponse$zodSchema,
 ]);

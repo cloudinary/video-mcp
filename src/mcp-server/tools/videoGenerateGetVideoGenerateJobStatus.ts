@@ -16,23 +16,23 @@ const args = {
 export const tool$videoGenerateGetVideoGenerateJobStatus: ToolDefinition<
   typeof args
 > = {
-  name: "video-generate-get-video-generate-job-status",
+  name: "get-video-generation-job",
   description: `Poll a video generation job
 
 Returns the current status of a generation job. When the status is \`completed\`, the response includes the generated video's asset details and delivery URL.`,
   annotations: {
-    "title": "",
+    "title": "Get Video Generation Job",
     "destructiveHint": false,
     "idempotentHint": false,
     "openWorldHint": false,
-    "readOnlyHint": true,
+    "readOnlyHint": false,
   },
   args,
   tool: async (client, args, ctx) => {
     const [result] = await videoGenerateGetVideoGenerateJobStatus(
       client,
       args.jobId,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

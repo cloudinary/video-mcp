@@ -13,12 +13,14 @@ import {
   VideoCanvasAppletDetailsWrappedResponse$zodSchema,
 } from "./videocanvasappletdetailswrappedresponse.js";
 
-export type CreateVideoCanvasAppletGlobals = { cloudName?: string | undefined };
+export type CreateVideoCanvasAppletGlobals = {
+  cloud_name?: string | undefined;
+};
 
 export const CreateVideoCanvasAppletGlobals$zodSchema: z.ZodType<
   CreateVideoCanvasAppletGlobals
 > = z.object({
-  cloudName: z.string().describe("The cloud name for your product environment.")
+  cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
 });
 

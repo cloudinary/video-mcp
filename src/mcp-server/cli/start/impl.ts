@@ -3,8 +3,8 @@
  * @generated-id: 37494f674015
  */
 
-import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { SSEServerTransport } from "@modelcontextprotocol/server-legacy/sse";
+import { serveStdio } from "@modelcontextprotocol/server/stdio";
 import express from "express";
 import { LocalContext } from "../../cli.js";
 import {
@@ -49,15 +49,19 @@ export async function main(this: LocalContext, flags: StartCommandFlags) {
 
 async function startStdio(flags: StartCommandFlags) {
   const logger = createConsoleLogger(flags["log-level"]);
-  const transport = new StdioServerTransport();
-  const { server } = createMCPServer({
+  const createServer = createMCPServerFactory({
     logger,
     allowedTools: flags.tool,
     dynamic: flags.mode === "dynamic",
     annotationFilter: buildAnnotationFilter(flags["tool-annotations"]),
     security: {
-      api_key: flags["api-key"] ?? "",
-      api_secret: flags["api-secret"] ?? "",
+      cloudinaryAuth: flags["api-key"] != null && flags["api-secret"] != null
+        ? {
+          api_key: flags["api-key"] ?? "",
+          api_secret: flags["api-secret"] ?? "",
+        }
+        : void 0,
+      oauth2: flags.oauth2 ?? "",
     },
     cloud_name: flags["cloud-name"],
     serverURL: flags["server-url"],
@@ -65,14 +69,20 @@ async function startStdio(flags: StartCommandFlags) {
     region: flags.region,
     host: flags["api-host"],
   });
-  await server.connect(transport);
+  const handle = serveStdio(createServer);
 
   const abort = async () => {
-    await server.close();
+    await handle.close();
     process.exit(0);
   };
   process.on("SIGTERM", abort);
   process.on("SIGINT", abort);
+}
+
+function createMCPServerFactory(
+  options: Parameters<typeof createMCPServer>[0],
+) {
+  return () => createMCPServer(options).server;
 }
 
 async function startSSE(cliFlags: StartCommandFlags) {
@@ -102,9 +112,12 @@ async function startSSE(cliFlags: StartCommandFlags) {
     const flags: StartCommandFlags = {
       ...cliFlags,
       // Security fields can be overridden via headers
-      "api-key": (req.headers["api_key"] as string) ?? cliFlags["api-key"],
-      "api-secret": (req.headers["api_secret"] as string)
-        ?? cliFlags["api-secret"],
+      "api-key": ((req.headers["api-key"] ?? req.headers["api_key"]) as string)
+        ?? cliFlags["api-key"],
+      "api-secret":
+        ((req.headers["api-secret"] ?? req.headers["api_secret"]) as string)
+          ?? cliFlags["api-secret"],
+      "oauth2": (req.headers["oauth2"] as string) ?? cliFlags["oauth2"],
     };
 
     // Create a new MCP server for this connection with its auth
@@ -114,8 +127,13 @@ async function startSSE(cliFlags: StartCommandFlags) {
       dynamic: flags.mode === "dynamic",
       annotationFilter: buildAnnotationFilter(flags["tool-annotations"]),
       security: {
-        api_key: flags["api-key"] ?? "",
-        api_secret: flags["api-secret"] ?? "",
+        cloudinaryAuth: flags["api-key"] != null && flags["api-secret"] != null
+          ? {
+            api_key: flags["api-key"] ?? "",
+            api_secret: flags["api-secret"] ?? "",
+          }
+          : void 0,
+        oauth2: flags.oauth2 ?? "",
       },
       cloud_name: flags["cloud-name"],
       serverURL: flags["server-url"],

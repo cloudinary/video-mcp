@@ -6,8 +6,8 @@
 import * as z from "zod";
 
 export type AIVideoAnalysisPayload = {
-  video_asset_id: string;
   visual_transcription_prompt?: string | undefined;
+  video_asset_id: string;
 };
 
 export const AIVideoAnalysisPayload$zodSchema: z.ZodType<

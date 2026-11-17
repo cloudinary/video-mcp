@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  * Create an applet
  *
  * @remarks
- * Creates an applet from its content (inputs, blocks, connections, and outputs). Cloudinary compiles the action blocks into a named transformation and returns the stored applet.
+ * Creates an applet from its content (inputs, blocks, connections, and outputs). Cloudinary compiles the action blocks to validate them and returns the stored applet. For a derived applet, the compiled blocks are also saved as a named transformation.
  */
 export function videoCanvasCreateVideoCanvasApplet(
   client$: CloudinaryVideoCore,
@@ -86,12 +86,12 @@ async function $do(
   const body$ = encodeJSON("body", payload$, { explode: true });
 
   const pathParams$ = {
-    cloudName: encodeSimple("cloudName", client$._options.cloud_name, {
+    cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
       explode: false,
       charEncoding: "percent",
     }),
   };
-  const path$ = pathToFunc("/v2/video/{cloudName}/video_canvas/applets")(
+  const path$ = pathToFunc("/v2/video/{cloud_name}/video_canvas/applets")(
     pathParams$,
   );
 

@@ -4,17 +4,10 @@
  */
 
 import * as z from "zod";
-
-/**
- * The message payload.
- */
-export type MessageWrappedResponseData = { message?: string | undefined };
-
-export const MessageWrappedResponseData$zodSchema: z.ZodType<
-  MessageWrappedResponseData
-> = z.object({
-  message: z.string().optional().describe("A human-readable message."),
-}).describe("The message payload.");
+import {
+  MessageWrappedResponseData,
+  MessageWrappedResponseData$zodSchema,
+} from "./messagewrappedresponsedata.js";
 
 /**
  * A response envelope wrapping a simple message.
@@ -27,8 +20,8 @@ export type MessageWrappedResponse = {
 export const MessageWrappedResponse$zodSchema: z.ZodType<
   MessageWrappedResponse
 > = z.object({
-  data: z.lazy(() => MessageWrappedResponseData$zodSchema).describe(
-    "The message payload.",
+  data: MessageWrappedResponseData$zodSchema.describe(
+    "An object carrying a human-readable message.",
   ),
   request_id: z.string().describe(
     "A unique id for the request, useful when contacting support.",

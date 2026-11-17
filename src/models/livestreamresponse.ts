@@ -5,6 +5,10 @@
 
 import * as z from "zod";
 import {
+  LiveStreamEmbeddedCaption,
+  LiveStreamEmbeddedCaption$zodSchema,
+} from "./livestreamembeddedcaption.js";
+import {
   LiveStreamInputResponse,
   LiveStreamInputResponse$zodSchema,
 } from "./livestreaminputresponse.js";
@@ -19,6 +23,7 @@ export type LiveStreamResponse = {
   input: LiveStreamInputResponse;
   status: string;
   outputs: Array<LiveStreamOutputResponse> | null;
+  embedded_captions?: Array<LiveStreamEmbeddedCaption> | undefined;
   idle_timeout_sec: number;
   max_runtime_sec: number;
   created_at: number;
@@ -28,6 +33,7 @@ export type LiveStreamResponse = {
 export const LiveStreamResponse$zodSchema: z.ZodType<LiveStreamResponse> = z
   .object({
     created_at: z.int(),
+    embedded_captions: z.array(LiveStreamEmbeddedCaption$zodSchema).optional(),
     id: z.string(),
     idle_timeout_sec: z.int(),
     input: LiveStreamInputResponse$zodSchema,

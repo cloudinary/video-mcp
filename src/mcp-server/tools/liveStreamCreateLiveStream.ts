@@ -8,14 +8,14 @@ import { LiveStreamCreatePayload$zodSchema } from "../../models/livestreamcreate
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: LiveStreamCreatePayload$zodSchema.optional(),
+  request: LiveStreamCreatePayload$zodSchema,
 };
 
 export const tool$liveStreamCreateLiveStream: ToolDefinition<typeof args> = {
-  name: "live-stream-create-live-stream",
+  name: "create-live-stream",
   description: `Create a new live stream`,
   annotations: {
-    "title": "",
+    "title": "Create Live Stream",
     "destructiveHint": false,
     "idempotentHint": false,
     "openWorldHint": false,
@@ -26,7 +26,7 @@ export const tool$liveStreamCreateLiveStream: ToolDefinition<typeof args> = {
     const [result] = await liveStreamCreateLiveStream(
       client,
       args.request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

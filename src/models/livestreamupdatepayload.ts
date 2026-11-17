@@ -4,16 +4,23 @@
  */
 
 import * as z from "zod";
+import {
+  LiveStreamEmbeddedCaption,
+  LiveStreamEmbeddedCaption$zodSchema,
+} from "./livestreamembeddedcaption.js";
 
 export type LiveStreamUpdatePayload = {
   name?: string | null | undefined;
   idle_timeout_sec?: number | null | undefined;
   max_runtime_sec?: number | null | undefined;
+  embedded_captions?: Array<LiveStreamEmbeddedCaption> | null | undefined;
 };
 
 export const LiveStreamUpdatePayload$zodSchema: z.ZodType<
   LiveStreamUpdatePayload
 > = z.object({
+  embedded_captions: z.array(LiveStreamEmbeddedCaption$zodSchema).nullable()
+    .optional(),
   idle_timeout_sec: z.int().nullable().optional(),
   max_runtime_sec: z.int().nullable().optional(),
   name: z.string().nullable().optional(),

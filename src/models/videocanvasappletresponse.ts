@@ -4,6 +4,20 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
+
+export const VideoCanvasAppletResponseKind = {
+  Derived: "derived",
+  Create: "create",
+} as const;
+export type VideoCanvasAppletResponseKind = ClosedEnum<
+  typeof VideoCanvasAppletResponseKind
+>;
+
+export const VideoCanvasAppletResponseKind$zodSchema = z.enum([
+  "derived",
+  "create",
+]);
 
 /**
  * A summary of a saved applet, without its content.
@@ -12,6 +26,7 @@ export type VideoCanvasAppletResponse = {
   id?: string | undefined;
   name?: string | undefined;
   description?: string | undefined;
+  kind?: VideoCanvasAppletResponseKind | undefined;
   named_transformation?: string | undefined;
   created_at?: number | undefined;
   updated_at?: number | undefined;
@@ -21,17 +36,18 @@ export const VideoCanvasAppletResponse$zodSchema: z.ZodType<
   VideoCanvasAppletResponse
 > = z.object({
   created_at: z.int().optional().describe(
-    "Creation time, as a Unix timestamp in seconds.",
+    "Creation time, as a Unix timestamp in milliseconds.",
   ),
   description: z.string().optional().describe("The applet's description."),
   id: z.string().optional().describe(
     "The server-generated, immutable applet id.",
   ),
+  kind: VideoCanvasAppletResponseKind$zodSchema.optional(),
   name: z.string().optional().describe("The applet's display name."),
   named_transformation: z.string().optional().describe(
-    "The name of the named transformation that backs the applet.",
+    "The name of the named transformation that backs a derived applet. Omitted for create applets.",
   ),
   updated_at: z.int().optional().describe(
-    "Last-modified time, as a Unix timestamp in seconds.",
+    "Last-modified time, as a Unix timestamp in milliseconds.",
   ),
 }).describe("A summary of a saved applet, without its content.");

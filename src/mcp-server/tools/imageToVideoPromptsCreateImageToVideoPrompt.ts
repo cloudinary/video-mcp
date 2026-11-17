@@ -8,7 +8,7 @@ import { ImageToVideoPromptCreatePayload$zodSchema } from "../../models/imagetov
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: ImageToVideoPromptCreatePayload$zodSchema.optional().describe(
+  request: ImageToVideoPromptCreatePayload$zodSchema.describe(
     `A JSON object with the prompt text and its display name.`,
   ),
 };
@@ -16,12 +16,12 @@ const args = {
 export const tool$imageToVideoPromptsCreateImageToVideoPrompt: ToolDefinition<
   typeof args
 > = {
-  name: "image-to-video-prompts-create-image-to-video-prompt",
+  name: "create-image-to-video-prompt",
   description: `Create an image to video prompt
 
 Saves a reusable prompt with a display name so you can apply it to future generations.`,
   annotations: {
-    "title": "",
+    "title": "Create Image-to-Video Prompt",
     "destructiveHint": false,
     "idempotentHint": false,
     "openWorldHint": false,
@@ -32,7 +32,7 @@ Saves a reusable prompt with a display name so you can apply it to future genera
     const [result] = await imageToVideoPromptsCreateImageToVideoPrompt(
       client,
       args.request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

@@ -16,12 +16,12 @@ const args = {
 export const tool$videoCanvasCreateVideoCanvasApplet: ToolDefinition<
   typeof args
 > = {
-  name: "video-canvas-create-video-canvas-applet",
+  name: "create-canvas-applet",
   description: `Create an applet
 
-Creates an applet from its content (inputs, blocks, connections, and outputs). Cloudinary compiles the action blocks into a named transformation and returns the stored applet.`,
+Creates an applet from its content (inputs, blocks, connections, and outputs). Cloudinary compiles the action blocks to validate them and returns the stored applet. For a derived applet, the compiled blocks are also saved as a named transformation.`,
   annotations: {
-    "title": "",
+    "title": "Create Video Canvas Applet",
     "destructiveHint": false,
     "idempotentHint": false,
     "openWorldHint": false,
@@ -32,7 +32,7 @@ Creates an applet from its content (inputs, blocks, connections, and outputs). C
     const [result] = await videoCanvasCreateVideoCanvasApplet(
       client,
       args.request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

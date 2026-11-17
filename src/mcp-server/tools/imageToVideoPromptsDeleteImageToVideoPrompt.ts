@@ -14,14 +14,14 @@ const args = {
 export const tool$imageToVideoPromptsDeleteImageToVideoPrompt: ToolDefinition<
   typeof args
 > = {
-  name: "image-to-video-prompts-delete-image-to-video-prompt",
+  name: "delete-image-to-video-prompt",
   description: `Delete an image to video prompt
 
 Permanently deletes a saved prompt by its ID.`,
   annotations: {
-    "title": "",
-    "destructiveHint": true,
-    "idempotentHint": false,
+    "title": "Delete Image-to-Video Prompt",
+    "destructiveHint": false,
+    "idempotentHint": true,
     "openWorldHint": false,
     "readOnlyHint": false,
   },
@@ -30,7 +30,7 @@ Permanently deletes a saved prompt by its ID.`,
     const [result] = await imageToVideoPromptsDeleteImageToVideoPrompt(
       client,
       args.promptId,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

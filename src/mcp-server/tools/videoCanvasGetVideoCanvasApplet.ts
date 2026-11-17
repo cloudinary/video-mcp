@@ -13,23 +13,23 @@ const args = {
 
 export const tool$videoCanvasGetVideoCanvasApplet: ToolDefinition<typeof args> =
   {
-    name: "video-canvas-get-video-canvas-applet",
+    name: "get-canvas-applet",
     description: `Get an applet
 
 Returns a single applet with its full content, including its inputs, blocks, connections, and outputs.`,
     annotations: {
-      "title": "",
+      "title": "Get Video Canvas Applet",
       "destructiveHint": false,
       "idempotentHint": false,
       "openWorldHint": false,
-      "readOnlyHint": true,
+      "readOnlyHint": false,
     },
     args,
     tool: async (client, args, ctx) => {
       const [result] = await videoCanvasGetVideoCanvasApplet(
         client,
         args.appletId,
-        { fetchOptions: { signal: ctx.signal } },
+        { fetchOptions: { signal: ctx.mcpReq.signal } },
       ).$inspect();
 
       if (!result.ok) {

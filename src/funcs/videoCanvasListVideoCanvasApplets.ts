@@ -4,8 +4,9 @@
  */
 
 import { CloudinaryVideoCore } from "../core.js";
-import { encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
+import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -18,7 +19,10 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import { ListVideoCanvasAppletsRequest } from "../models/listvideocanvasappletsop.js";
+import {
+  ListVideoCanvasAppletsRequest,
+  ListVideoCanvasAppletsRequest$zodSchema,
+} from "../models/listvideocanvasappletsop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -30,7 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function videoCanvasListVideoCanvasApplets(
   client$: CloudinaryVideoCore,
-  _request?: ListVideoCanvasAppletsRequest | undefined,
+  kind?: string | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -46,14 +50,14 @@ export function videoCanvasListVideoCanvasApplets(
 > {
   return new APIPromise($do(
     client$,
-    _request,
+    kind,
     options,
   ));
 }
 
 async function $do(
   client$: CloudinaryVideoCore,
-  _request?: ListVideoCanvasAppletsRequest | undefined,
+  kind?: string | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -70,15 +74,34 @@ async function $do(
     APICall,
   ]
 > {
+  const input$: ListVideoCanvasAppletsRequest | undefined = {
+    kind: kind,
+  };
+
+  const parsed$ = safeParse(
+    input$,
+    (value$) =>
+      ListVideoCanvasAppletsRequest$zodSchema.optional().parse(value$),
+    "Input validation failed",
+  );
+  if (!parsed$.ok) {
+    return [parsed$, { status: "invalid" }];
+  }
+  const payload$ = parsed$.value;
+  const body$ = null;
+
   const pathParams$ = {
-    cloudName: encodeSimple("cloudName", client$._options.cloud_name, {
+    cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
       explode: false,
       charEncoding: "percent",
     }),
   };
-  const path$ = pathToFunc("/v2/video/{cloudName}/video_canvas/applets")(
+  const path$ = pathToFunc("/v2/video/{cloud_name}/video_canvas/applets")(
     pathParams$,
   );
+  const query$ = encodeFormQuery({
+    "kind": payload$?.kind,
+  });
 
   const headers$ = new Headers(compactMap({
     Accept: "application/json",
@@ -111,6 +134,8 @@ async function $do(
     baseURL: options?.serverURL,
     path: path$,
     headers: headers$,
+    query: query$,
+    body: body$,
     userAgent: client$._options.userAgent,
     timeoutMs: options?.timeoutMs || client$._options.timeoutMs
       || -1,
