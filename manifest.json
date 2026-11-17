@@ -18,7 +18,7 @@
     "media"
   ],
   "license": "MIT",
-  "long_description": "An MCP server for the Cloudinary Video API. Manage RTMP live streams and their outputs, generate videos from images, run AI video analysis, and build Video Canvas transformation applets.",
+  "long_description": "An MCP server for the Cloudinary Video API. Broadcast live streams over RTMP with HLS delivery, archiving, and simulcast to YouTube or Facebook. Generate videos from images and a prompt with Image to Video (Beta, add-on). Get timestamped visual transcripts of stored videos with AI Video Analysis (Beta). Build Video Canvas applets: node-based transformation pipelines saved as named transformations.",
   "manifest_version": "0.3",
   "name": "@cloudinary/video-mcp",
   "privacy_policies": [
@@ -71,7 +71,7 @@
       "type": "string"
     }
   },
-  "version": "0.2.0",
+  "version": "0.1.1",
   "tools": [
     {
       "name": "list-canvas-applets",
