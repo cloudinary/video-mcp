@@ -10,7 +10,7 @@ const ICON_BASE =
 export const serverInfo: Omit<Implementation, "name" | "version"> = {
   title: "Cloudinary Video",
   description:
-    "Stream live video, generate videos from images with AI, get timestamped visual transcripts of your videos, and build reusable video transformation pipelines.",
+    "Stream live video, generate video from images, get visual transcripts, and build video pipelines.",
   websiteUrl: "https://cloudinary.com/documentation/cloudinary_llm_mcp",
   icons: [32, 96, 192].map((size) => ({
     src: `${ICON_BASE}/cloudinary_favicon_${size}x${size}.png`,
