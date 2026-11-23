@@ -74,5 +74,31 @@
         }
       ]
     }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://video.mcp.cloudinary.com/mcp",
+      "headers": [
+        {
+          "name": "cloudinary-cloud-name",
+          "description": "Your Cloudinary cloud name. Find it in your Cloudinary Dashboard.",
+          "isRequired": false,
+          "isSecret": false
+        },
+        {
+          "name": "cloudinary-api-key",
+          "description": "Your Cloudinary API key. Found in Dashboard > Settings > Access Keys.",
+          "isRequired": false,
+          "isSecret": false
+        },
+        {
+          "name": "cloudinary-api-secret",
+          "description": "Your Cloudinary API secret. Found in Dashboard > Settings > Access Keys.",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
   ]
 }
