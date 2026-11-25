@@ -5,15 +5,16 @@
 <!-- Start Summary [summary] -->
 ## Summary
 
-Cloudinary Video API: The Video API enables you to stream, generate, analyze, and transform video in your product environment. Broadcast **live streams** over RTMP, generate videos from images with **Image to Video**, produce timestamped visual transcripts with **AI Video Analysis**, and build node-based transformation pipelines as **Video Canvas** applets.
+Cloudinary Video API: The Video API enables you to stream, generate, analyze, and transform video in your product environment. Broadcast **live streams** over RTMP, generate videos from images with **Image to Video**, produce timestamped visual transcripts with **AI Video Analysis**, build node-based transformation pipelines as **Video Canvas** applets, and manage the posters, transcripts, and chapters attached to a video as **Video Elements**.
 
 The API uses **Basic Authentication** over HTTPS with your **API Key** and **API Secret** from the [Cloudinary Console](https://console.cloudinary.com/app/settings/api-keys), or **OAuth 2.0** with the `video` scope.
 
 Key capabilities:
-* Create and manage RTMP live streams and their outputs, and start or stop a stream manually. See the [live streaming guide](https://cloudinary.com/documentation/video_live_streaming).
+* Create and manage RTMP live streams and their outputs, start or stop a stream manually, and monitor a stream's input health and viewers. See the [live streaming guide](https://cloudinary.com/documentation/video_live_streaming).
 * Generate a video from a source image and a text prompt describing the motion or scene, and manage reusable prompts. See the [Image to Video add-on](https://cloudinary.com/documentation/image_to_video_addon) guide.
 * Generate a visual transcript of a stored video: timestamped, natural-language descriptions of what's visible on screen, optionally guided by a prompt. See the [AI Video Analysis](https://cloudinary.com/documentation/ai_video_analysis) guide.
 * Create applets that Cloudinary compiles into a [named transformation](https://cloudinary.com/documentation/video_named_transformations) you can deliver like any other transformation. See the [Video Canvas](https://cloudinary.com/documentation/video_canvas) guide.
+* List, upload, and delete a video's elements: its poster, transcripts and their translations, visual transcript, and chapters. See [Managing video elements via the API](https://cloudinary.com/documentation/video_player_studio#managing_video_elements_via_the_api).
 
 Image to Video and AI Video Analysis requests run as asynchronous jobs: you submit a request, then poll the job until the result is ready.
 

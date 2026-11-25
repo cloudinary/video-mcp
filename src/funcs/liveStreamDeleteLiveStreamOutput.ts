@@ -7,9 +7,8 @@ import { CloudinaryVideoCore } from "../core.js";
 import { encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { encodePath, RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
-import { pathToFunc } from "../lib/url.js";
 import {
   DeleteLiveStreamOutputRequest,
   DeleteLiveStreamOutputRequest$zodSchema,
@@ -105,11 +104,14 @@ async function $do(
       { explode: false, charEncoding: "percent" },
     ),
   };
-  const path$ = pathToFunc(
+  const pathResult$ = encodePath(
     "/v2/video/{cloud_name}/live_streams/{liveStreamId}/outputs/{liveStreamOutputId}",
-  )(
     pathParams$,
   );
+  if (!pathResult$.ok) {
+    return [pathResult$, { status: "invalid" }];
+  }
+  const path$ = pathResult$.value;
 
   const headers$ = new Headers(compactMap({
     Accept: "application/json",

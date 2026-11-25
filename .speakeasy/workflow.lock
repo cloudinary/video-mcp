@@ -1,18 +1,18 @@
-speakeasyVersion: 1.809.0
+speakeasyVersion: 1.811.0
 sources:
     CloudinaryVideo-MCP-OAS:
         sourceNamespace: cloudinary-video-mcp-oas
-        sourceRevisionDigest: sha256:74d365bb923e45899134b74bae76edd521fb28c150fb7d99591874cba1ff2ac0
-        sourceBlobDigest: sha256:098221a24c77edd421fd529f762bb8df92f519a70aed23f31c29d265e258d381
+        sourceRevisionDigest: sha256:52b470b6858be408cd37a9c6fb345693185749ee2f0c150ede28dbb32578f3ad
+        sourceBlobDigest: sha256:31195e5fe037e495bbf9957825f89182747dff90545c4d585a00df1022c3869d
         tags:
             - latest
-            - 0.1.1
+            - 0.1.2
 targets:
     cloudinary-video-mcp:
         source: CloudinaryVideo-MCP-OAS
         sourceNamespace: cloudinary-video-mcp-oas
-        sourceRevisionDigest: sha256:74d365bb923e45899134b74bae76edd521fb28c150fb7d99591874cba1ff2ac0
-        sourceBlobDigest: sha256:098221a24c77edd421fd529f762bb8df92f519a70aed23f31c29d265e258d381
+        sourceRevisionDigest: sha256:52b470b6858be408cd37a9c6fb345693185749ee2f0c150ede28dbb32578f3ad
+        sourceBlobDigest: sha256:31195e5fe037e495bbf9957825f89182747dff90545c4d585a00df1022c3869d
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -23,6 +23,7 @@ workflow:
             overlays:
                 - location: https://cloudinary.github.io/api-schemas/overlays/security-scheme-cloud-overlay.yaml
                 - location: https://cloudinary.github.io/api-schemas/overlays/cloud-name-overlay.yml
+                - location: https://cloudinary.github.io/api-schemas/video/overlays/remove-multipart-overlay.yml
             registry:
                 location: registry.speakeasyapi.dev/cloudinary/cloudinary/cloudinary-video-mcp-oas
     targets:

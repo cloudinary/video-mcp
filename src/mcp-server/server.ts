@@ -32,9 +32,13 @@ import { tool$liveStreamCreateLiveStreamOutput } from "./tools/liveStreamCreateL
 import { tool$liveStreamDeleteLiveStream } from "./tools/liveStreamDeleteLiveStream.js";
 import { tool$liveStreamDeleteLiveStreamOutput } from "./tools/liveStreamDeleteLiveStreamOutput.js";
 import { tool$liveStreamGetLiveStream } from "./tools/liveStreamGetLiveStream.js";
+import { tool$liveStreamGetLiveStreamAnalyticsMetrics } from "./tools/liveStreamGetLiveStreamAnalyticsMetrics.js";
+import { tool$liveStreamGetLiveStreamAnalyticsTimeSeries } from "./tools/liveStreamGetLiveStreamAnalyticsTimeSeries.js";
+import { tool$liveStreamGetLiveStreamHealth } from "./tools/liveStreamGetLiveStreamHealth.js";
 import { tool$liveStreamGetLiveStreamOutput } from "./tools/liveStreamGetLiveStreamOutput.js";
 import { tool$liveStreamGetLiveStreamOutputs } from "./tools/liveStreamGetLiveStreamOutputs.js";
 import { tool$liveStreamGetLiveStreams } from "./tools/liveStreamGetLiveStreams.js";
+import { tool$liveStreamGetLiveStreamStats } from "./tools/liveStreamGetLiveStreamStats.js";
 import { tool$liveStreamIdleLiveStream } from "./tools/liveStreamIdleLiveStream.js";
 import { tool$liveStreamUpdateLiveStream } from "./tools/liveStreamUpdateLiveStream.js";
 import { tool$liveStreamUpdateLiveStreamOutput } from "./tools/liveStreamUpdateLiveStreamOutput.js";
@@ -43,6 +47,9 @@ import { tool$videoCanvasDeleteVideoCanvasApplet } from "./tools/videoCanvasDele
 import { tool$videoCanvasGetVideoCanvasApplet } from "./tools/videoCanvasGetVideoCanvasApplet.js";
 import { tool$videoCanvasListVideoCanvasApplets } from "./tools/videoCanvasListVideoCanvasApplets.js";
 import { tool$videoCanvasUpdateVideoCanvasApplet } from "./tools/videoCanvasUpdateVideoCanvasApplet.js";
+import { tool$videoElementsDeleteVideoElement } from "./tools/videoElementsDeleteVideoElement.js";
+import { tool$videoElementsGetVideoElements } from "./tools/videoElementsGetVideoElements.js";
+import { tool$videoElementsUploadVideoElement } from "./tools/videoElementsUploadVideoElement.js";
 import { tool$videoGenerateCreateVideoGenerateJob } from "./tools/videoGenerateCreateVideoGenerateJob.js";
 import { tool$videoGenerateGetVideoGenerateJobStatus } from "./tools/videoGenerateGetVideoGenerateJobStatus.js";
 
@@ -62,7 +69,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "CloudinaryVideo",
-    version: "0.1.0",
+    version: "0.2.0",
     ...serverInfo,
   }, { instructions });
 
@@ -128,6 +135,10 @@ export function createMCPServer(deps: {
   tool(tool$liveStreamGetLiveStreamOutput);
   tool(tool$liveStreamUpdateLiveStreamOutput);
   tool(tool$liveStreamDeleteLiveStreamOutput);
+  tool(tool$liveStreamGetLiveStreamStats);
+  tool(tool$liveStreamGetLiveStreamHealth);
+  tool(tool$liveStreamGetLiveStreamAnalyticsMetrics);
+  tool(tool$liveStreamGetLiveStreamAnalyticsTimeSeries);
   tool(tool$videoGenerateCreateVideoGenerateJob);
   tool(tool$videoGenerateGetVideoGenerateJobStatus);
   tool(tool$imageToVideoPromptsGetImageToVideoPrompts);
@@ -137,6 +148,9 @@ export function createMCPServer(deps: {
   tool(tool$imageToVideoPromptsDeleteImageToVideoPrompt);
   tool(tool$aiVideoAnalysisCreateAIVideoAnalysisJob);
   tool(tool$aiVideoAnalysisGetAIVideoAnalysisJobStatus);
+  tool(tool$videoElementsGetVideoElements);
+  tool(tool$videoElementsUploadVideoElement);
+  tool(tool$videoElementsDeleteVideoElement);
 
   if (deps.dynamic) {
     registerDynamicTools(deps.logger, server, getClient, toolMap, scopes);
