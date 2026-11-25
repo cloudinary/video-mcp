@@ -69,6 +69,22 @@ export const toolNames: Array<{ name: string; description: string }>= [
     "description": "Delete a live stream output"
   },
   {
+    "name": "get-live-stream-stats",
+    "description": "Get live stream input stats\n\nReturns the input stats collected for a live stream during a time range, such as the incoming video and audio bitrates, the resolution and codecs declared by the streaming software, and the number of dropped frames. Stats are kept for 30 days. Returns an empty list when no stats were collected in the time range, for example when the stream wasn't receiving input."
+  },
+  {
+    "name": "get-live-stream-health",
+    "description": "Get live stream health\n\nAssesses the health of a live stream's input from the stats collected during a time range. The assessment compares the incoming video and audio bitrates to the bitrates expected for the stream's resolution, frame rate, and codecs, and also takes into account the ratio of incoming to outgoing bitrate and the number of dropped frames. By default, it covers the last 15 seconds, so you can poll it to monitor a stream while it runs."
+  },
+  {
+    "name": "get-live-stream-viewer-metrics",
+    "description": "Get live stream viewer metrics\n\nReturns viewer metrics for the latest session of a live stream: how many people are watching now, how many watched in total, and the average watch time. A session runs from when the stream is activated until it goes idle.\n\nViewer data is reported by the Cloudinary Video Player, which sends an event when a viewer starts and stops watching the stream, unless the player's `cloudinaryAnalytics` option is set to `false`. Viewers who watch the stream in other players aren't counted.\n"
+  },
+  {
+    "name": "get-live-stream-viewer-time-series",
+    "description": "Get live stream viewer metrics over time\n\nReturns one viewer metric for the latest session of a live stream as a time series, with a data point every five seconds from `from` to `to`. Use it to chart how the audience changed during the session. Viewer data comes from the Cloudinary Video Player, as described for the viewer metrics endpoint."
+  },
+  {
     "name": "generate-video-from-image",
     "description": "Create a video generation job\n\nSubmits an image and prompt for video generation and returns a job you can poll for the result."
   },
@@ -103,5 +119,17 @@ export const toolNames: Array<{ name: string; description: string }>= [
   {
     "name": "get-video-analysis-job",
     "description": "Poll an AI Video Analysis job\n\nReturns the current status of an analysis job. When the status is `completed`, the response includes the generated visual transcript file's asset details and delivery URL."
+  },
+  {
+    "name": "list-video-elements",
+    "description": "List a video's elements\n\nReturns the elements of the given type that are attached to a video, such as its custom poster or its transcript files. Each element is a separate asset related to the video. Results are paginated; when `next_cursor` is returned, pass it as `cursor` to get the next page."
+  },
+  {
+    "name": "upload-video-element",
+    "description": "Upload a video element\n\nUploads a file as a video element and attaches it to the video whose asset ID you pass as `videoAssetId` in the path. The element is stored as its own asset, in the same asset folder as the video, with a public ID based on the video's public ID.\n\nHow to send the file depends on the element type:\n- `poster`: send the image as `file` in a `multipart/form-data` request, or send `{\"url\": \"<image URL>\"}` as `application/json` to upload it from a URL. The poster's public ID is `<video public ID>_poster`.\n- `transcript`: send a `.srt`, `.vtt`, or `.transcript` file as `file` in a `multipart/form-data` request. Cloudinary converts it to its `.transcript` format. To upload a translation, also send `language_code`. The public ID is `<video public ID>.<language_code>.transcript`, or `<video public ID>.transcript` without a language code.\n- `visual_transcript`: send a `.srt`, `.vtt`, or `.transcript` file as `file` in a `multipart/form-data` request. Cloudinary converts it to its `.transcript` format. The public ID is `<video public ID>.visual.transcript`.\n\nFiles can be up to 30 MB. Chapters can't be uploaded.\n"
+  },
+  {
+    "name": "delete-video-elements",
+    "description": "Delete video elements\n\nDeletes elements of the given type from a video. By default, deletes all of the video's elements of that type, for example every transcript including translations. To delete a single element, pass its `assetId`. The element assets are deleted, not just detached from the video. The response confirms the request but doesn't list the deleted elements, so to check what's left, list the video's elements."
   }
 ];
